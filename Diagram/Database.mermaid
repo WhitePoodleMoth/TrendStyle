@@ -1,0 +1,105 @@
+classDiagram
+    class administrador{
+        +INTEGER ID
+        +VARCHAR usuario
+        +VARCHAR senha
+        +VARCHAR CPF
+        +VARCHAR nome
+        +VARCHAR sobrenome
+        +VARCHAR email
+        +VARCHAR telefone
+    }
+
+    class vendor{
+        +INTEGER ID
+        +VARCHAR CNPJ
+        +VARCHAR RazaoSocial
+        +VARCHAR NomeFantasia
+        +VARCHAR email
+        +VARCHAR telefone
+        +VARCHAR CEP
+        +VARCHAR rua
+        +VARCHAR numero
+        +VARCHAR Cidade
+        +VARCHAR Estado
+    }
+
+    class client{
+        +INTEGER ID
+        +VARCHAR CPF
+        +FLOAT saldo
+        +VARCHAR nome
+        +VARCHAR sobrenome
+        +VARCHAR email
+        +VARCHAR telefone
+        +VARCHAR CEP
+        +VARCHAR rua
+        +VARCHAR numero
+        +VARCHAR Cidade
+        +VARCHAR Estado
+    }
+    
+    class product_type{
+        +INTEGER ID
+        +VARCHAR nome
+        +VARCHAR descricao
+    }
+
+    class product{
+        +INTEGER ID
+        +VARCHAR nome
+        +VARCHAR descricao
+        +VARCHAR imagem_url
+        +FLOAT valor
+        +INTEGER estoque
+        +DATE creation
+        +ForeignKey (vendor)
+        +ForeignKey (product_type)
+    }
+
+    class cart{
+        +INTEGER ID
+        +ForeignKey (client)
+    }
+
+    class cart_product{
+        +INTEGER ID
+        +ForeignKey (cart)
+        +ForeignKey (product)
+        +INTEGER quantidade
+    }
+
+    class deposit{
+        +INTEGER ID
+        +ForeignKey (client)
+        +FLOAT valor
+        +DATE data
+    }
+
+    class order{
+        +INTEGER ID
+        +ForeignKey (client)
+        +FLOAT valor
+        +DATE data
+        +BOOLEAN entregue
+    }
+
+    class order_product{
+        +INTEGER ID
+        +ForeignKey (order)
+        +ForeignKey (product)
+        +INTEGER quantidade
+    }
+
+    client <|-- deposit
+    client <|-- order
+    client <|-- cart
+
+    vendor <|-- product
+
+    product  <|-- cart_product
+    product_type <|-- product
+    cart <|-- cart_product
+
+    order <|-- order_product
+    product <|-- order_product
