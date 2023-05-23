@@ -4,6 +4,10 @@
  */
 package views;
 
+import java.awt.Toolkit;
+import views.admin.AdminHomeScreen;
+import views.client.ClientHomeScreen;
+
 /**
  *
  * @author Unknown Account
@@ -15,6 +19,8 @@ public class HomeScreen extends javax.swing.JFrame {
      */
     public HomeScreen() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../media/TrendStyleIcon.png")));
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -26,21 +32,67 @@ public class HomeScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Panel = new javax.swing.JPanel();
+        ButtonAdministration = new javax.swing.JButton();
+        ButtonClient = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("TrendStyle - Home");
+        setResizable(false);
+
+        Panel.setBackground(new java.awt.Color(255, 255, 255));
+        Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ButtonAdministration.setBorder(null);
+        ButtonAdministration.setBorderPainted(false);
+        ButtonAdministration.setContentAreaFilled(false);
+        ButtonAdministration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonAdministrationActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonAdministration, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 320, 300, 60));
+        ButtonAdministration.getAccessibleContext().setAccessibleParent(Background);
+
+        ButtonClient.setBorder(null);
+        ButtonClient.setBorderPainted(false);
+        ButtonClient.setContentAreaFilled(false);
+        ButtonClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonClientActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 260, 300, 50));
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/home.gif"))); // NOI18N
+        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ButtonAdministrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAdministrationActionPerformed
+        AdminHomeScreen page = new AdminHomeScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonAdministrationActionPerformed
+
+    private void ButtonClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonClientActionPerformed
+        ClientHomeScreen page = new ClientHomeScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonClientActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +130,9 @@ public class HomeScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
+    private javax.swing.JButton ButtonAdministration;
+    private javax.swing.JButton ButtonClient;
+    private javax.swing.JPanel Panel;
     // End of variables declaration//GEN-END:variables
 }
