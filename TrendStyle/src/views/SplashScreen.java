@@ -4,17 +4,58 @@
  */
 package views;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author Unknown Account
  */
 public class SplashScreen extends javax.swing.JFrame {
-
+    private int progressValue = 0;
+    private final int progressTimer = 50;
+    
+    private void progressBarUpdate(int amount) {
+        if (amount <= 0) {
+            ProgressBar.setValue(0);
+        } else {
+            progressValue += amount;
+            if (progressValue > 100) progressValue = 100;
+            ProgressBar.setValue(progressValue);
+        }
+    }
+    
+    private void progressSlow(int amount, Thread thPtr) {
+        for (int x=0; x<=amount; x++) {
+            progressBarUpdate(1);
+            try {
+                thPtr.sleep(progressTimer);
+            } catch (InterruptedException ex) {}
+        }
+    }
+    
     /**
      * Creates new form SplashScreen
      */
     public SplashScreen() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../media/TrendStyleIcon.png")));
+        setLocationRelativeTo(null);
+        progressBarUpdate(0);
+        
+        new Thread(){
+            @Override
+            public void run(){
+                try {
+                    HomeScreen home = new HomeScreen();
+                    progressSlow(100, this);
+                    home.setVisible(true);
+                } catch (Exception ex) {
+                    System.exit(0);
+                } finally {
+                    dispose();
+                }
+            }
+        }.start();
     }
 
     /**
@@ -26,17 +67,56 @@ public class SplashScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Panel = new javax.swing.JPanel();
+        LoadingGif = new javax.swing.JLabel();
+        ProgressBar = new javax.swing.JProgressBar();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("TrendStyle - Loading");
+        setAlwaysOnTop(true);
+        setResizable(false);
+
+        Panel.setBackground(new java.awt.Color(255, 255, 255));
+
+        LoadingGif.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LoadingGif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/loading.gif"))); // NOI18N
+
+        ProgressBar.setBackground(new java.awt.Color(255, 255, 255));
+        ProgressBar.setForeground(new java.awt.Color(203, 184, 193));
+        ProgressBar.setBorder(null);
+        ProgressBar.setBorderPainted(false);
+        ProgressBar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout PanelLayout = new javax.swing.GroupLayout(Panel);
+        Panel.setLayout(PanelLayout);
+        PanelLayout.setHorizontalGroup(
+            PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LoadingGif, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PanelLayout.setVerticalGroup(
+            PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LoadingGif, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -78,5 +158,8 @@ public class SplashScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LoadingGif;
+    private javax.swing.JPanel Panel;
+    private javax.swing.JProgressBar ProgressBar;
     // End of variables declaration//GEN-END:variables
 }
