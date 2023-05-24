@@ -35,28 +35,33 @@ public class AdminHomeScreen extends javax.swing.JFrame {
         ButtonLogin = new javax.swing.JButton();
         ButtonRegister = new javax.swing.JButton();
         ButtonBack = new javax.swing.JButton();
+        FieldUsername = new javax.swing.JTextField();
+        FieldPassword = new javax.swing.JPasswordField();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TrendStyle - Admin");
+        setResizable(false);
 
         Panel.setBackground(new java.awt.Color(255, 255, 255));
         Panel.setPreferredSize(new java.awt.Dimension(960, 540));
-        Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Panel.setLayout(null);
 
         ButtonLogin.setBorderPainted(false);
         ButtonLogin.setContentAreaFilled(false);
         ButtonLogin.setMaximumSize(new java.awt.Dimension(300, 50));
         ButtonLogin.setMinimumSize(new java.awt.Dimension(300, 50));
         ButtonLogin.setPreferredSize(new java.awt.Dimension(300, 50));
-        Panel.add(ButtonLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, 50));
+        Panel.add(ButtonLogin);
+        ButtonLogin.setBounds(550, 330, 320, 60);
 
         ButtonRegister.setBorderPainted(false);
         ButtonRegister.setContentAreaFilled(false);
         ButtonRegister.setMaximumSize(new java.awt.Dimension(300, 50));
         ButtonRegister.setMinimumSize(new java.awt.Dimension(300, 50));
         ButtonRegister.setPreferredSize(new java.awt.Dimension(300, 50));
-        Panel.add(ButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 300, 50));
+        Panel.add(ButtonRegister);
+        ButtonRegister.setBounds(550, 420, 320, 60);
 
         ButtonBack.setBorderPainted(false);
         ButtonBack.setContentAreaFilled(false);
@@ -68,11 +73,30 @@ public class AdminHomeScreen extends javax.swing.JFrame {
                 ButtonBackActionPerformed(evt);
             }
         });
-        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 50, 50));
+        Panel.add(ButtonBack);
+        ButtonBack.setBounds(10, 10, 60, 60);
 
+        FieldUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldUsername.setToolTipText("");
+        FieldUsername.setBorder(null);
+        FieldUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldUsernameActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldUsername);
+        FieldUsername.setBounds(603, 219, 260, 30);
+
+        FieldPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldPassword.setBorder(null);
+        Panel.add(FieldPassword);
+        FieldPassword.setBounds(603, 276, 260, 29);
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/adminHome.png"))); // NOI18N
         Background.setMaximumSize(new java.awt.Dimension(960, 540));
         Background.setMinimumSize(new java.awt.Dimension(960, 540));
-        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
+        Panel.add(Background);
+        Background.setBounds(0, 0, 960, 540);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,6 +121,10 @@ public class AdminHomeScreen extends javax.swing.JFrame {
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void FieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldUsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,6 +166,8 @@ public class AdminHomeScreen extends javax.swing.JFrame {
     private javax.swing.JButton ButtonBack;
     private javax.swing.JButton ButtonLogin;
     private javax.swing.JButton ButtonRegister;
+    private javax.swing.JPasswordField FieldPassword;
+    private javax.swing.JTextField FieldUsername;
     private javax.swing.JPanel Panel;
     // End of variables declaration//GEN-END:variables
 }
