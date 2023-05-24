@@ -34,15 +34,18 @@ public class ClientHomeScreen extends javax.swing.JFrame {
         Panel = new javax.swing.JPanel();
         ButtonLogin = new javax.swing.JButton();
         ButtonRegister = new javax.swing.JButton();
-        Background = new javax.swing.JLabel();
         ButtonBack = new javax.swing.JButton();
+        FieldUsername = new javax.swing.JTextField();
+        FieldPassword = new javax.swing.JPasswordField();
+        Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TrendStyle - Client");
+        setResizable(false);
 
         Panel.setBackground(new java.awt.Color(255, 255, 255));
         Panel.setPreferredSize(new java.awt.Dimension(960, 540));
-        Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Panel.setLayout(null);
 
         ButtonLogin.setBorderPainted(false);
         ButtonLogin.setContentAreaFilled(false);
@@ -51,12 +54,13 @@ public class ClientHomeScreen extends javax.swing.JFrame {
                 ButtonLoginActionPerformed(evt);
             }
         });
-        Panel.add(ButtonLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 300, 50));
+        Panel.add(ButtonLogin);
+        ButtonLogin.setBounds(550, 330, 320, 60);
 
         ButtonRegister.setBorderPainted(false);
         ButtonRegister.setContentAreaFilled(false);
-        Panel.add(ButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 62, 300, 50));
-        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        Panel.add(ButtonRegister);
+        ButtonRegister.setBounds(560, 420, 300, 60);
 
         ButtonBack.setBorderPainted(false);
         ButtonBack.setContentAreaFilled(false);
@@ -68,7 +72,28 @@ public class ClientHomeScreen extends javax.swing.JFrame {
                 ButtonBackActionPerformed(evt);
             }
         });
-        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 50, 50));
+        Panel.add(ButtonBack);
+        ButtonBack.setBounds(10, 10, 60, 60);
+
+        FieldUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldUsername.setToolTipText("");
+        FieldUsername.setBorder(null);
+        FieldUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldUsernameActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldUsername);
+        FieldUsername.setBounds(603, 219, 260, 30);
+
+        FieldPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldPassword.setBorder(null);
+        Panel.add(FieldPassword);
+        FieldPassword.setBounds(603, 276, 260, 29);
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/clientHome.png"))); // NOI18N
+        Panel.add(Background);
+        Background.setBounds(0, 0, 960, 540);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,6 +118,10 @@ public class ClientHomeScreen extends javax.swing.JFrame {
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void FieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldUsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,6 +163,8 @@ public class ClientHomeScreen extends javax.swing.JFrame {
     private javax.swing.JButton ButtonBack;
     private javax.swing.JButton ButtonLogin;
     private javax.swing.JButton ButtonRegister;
+    private javax.swing.JPasswordField FieldPassword;
+    private javax.swing.JTextField FieldUsername;
     private javax.swing.JPanel Panel;
     // End of variables declaration//GEN-END:variables
 }
