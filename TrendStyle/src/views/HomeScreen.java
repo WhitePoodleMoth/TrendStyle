@@ -52,7 +52,7 @@ public class HomeScreen extends javax.swing.JFrame {
                 ButtonAdministrationActionPerformed(evt);
             }
         });
-        Panel.add(ButtonAdministration, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 320, 300, 60));
+        Panel.add(ButtonAdministration, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 320, 300, 50));
 
         ButtonClient.setBorder(null);
         ButtonClient.setBorderPainted(false);
@@ -62,7 +62,7 @@ public class HomeScreen extends javax.swing.JFrame {
                 ButtonClientActionPerformed(evt);
             }
         });
-        Panel.add(ButtonClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 260, 300, 50));
+        Panel.add(ButtonClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 250, 300, 50));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/home.png"))); // NOI18N
         Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
