@@ -4,6 +4,9 @@
  */
 package views.client;
 
+import java.awt.Toolkit;
+import views.HomeScreen;
+
 /**
  *
  * @author Unknown Account
@@ -15,6 +18,8 @@ public class ClientHomeScreen extends javax.swing.JFrame {
      */
     public ClientHomeScreen() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -26,21 +31,68 @@ public class ClientHomeScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Panel = new javax.swing.JPanel();
+        ButtonLogin = new javax.swing.JButton();
+        ButtonRegister = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
+        ButtonBack = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("TrendStyle - Client");
+
+        Panel.setBackground(new java.awt.Color(255, 255, 255));
+        Panel.setPreferredSize(new java.awt.Dimension(960, 540));
+        Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ButtonLogin.setBorderPainted(false);
+        ButtonLogin.setContentAreaFilled(false);
+        ButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonLoginActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 300, 50));
+
+        ButtonRegister.setBorderPainted(false);
+        ButtonRegister.setContentAreaFilled(false);
+        Panel.add(ButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 62, 300, 50));
+        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        ButtonBack.setBorderPainted(false);
+        ButtonBack.setContentAreaFilled(false);
+        ButtonBack.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonBack.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonBack.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonBackActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 50, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonLoginActionPerformed
+
+    private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
+        HomeScreen page = new HomeScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +130,10 @@ public class ClientHomeScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
+    private javax.swing.JButton ButtonBack;
+    private javax.swing.JButton ButtonLogin;
+    private javax.swing.JButton ButtonRegister;
+    private javax.swing.JPanel Panel;
     // End of variables declaration//GEN-END:variables
 }
