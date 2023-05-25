@@ -59,6 +59,11 @@ public class ClientHomeScreen extends javax.swing.JFrame {
 
         ButtonRegister.setBorderPainted(false);
         ButtonRegister.setContentAreaFilled(false);
+        ButtonRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonRegisterActionPerformed(evt);
+            }
+        });
         Panel.add(ButtonRegister);
         ButtonRegister.setBounds(560, 420, 300, 60);
 
@@ -122,6 +127,12 @@ public class ClientHomeScreen extends javax.swing.JFrame {
     private void FieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FieldUsernameActionPerformed
+
+    private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
+        ClientRegisterScreen page = new ClientRegisterScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonRegisterActionPerformed
 
     /**
      * @param args the command line arguments
