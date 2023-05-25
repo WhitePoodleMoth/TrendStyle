@@ -60,6 +60,11 @@ public class AdminHomeScreen extends javax.swing.JFrame {
         ButtonRegister.setMaximumSize(new java.awt.Dimension(300, 50));
         ButtonRegister.setMinimumSize(new java.awt.Dimension(300, 50));
         ButtonRegister.setPreferredSize(new java.awt.Dimension(300, 50));
+        ButtonRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonRegisterActionPerformed(evt);
+            }
+        });
         Panel.add(ButtonRegister);
         ButtonRegister.setBounds(550, 420, 320, 60);
 
@@ -93,8 +98,6 @@ public class AdminHomeScreen extends javax.swing.JFrame {
         FieldPassword.setBounds(603, 276, 260, 29);
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/adminHome.png"))); // NOI18N
-        Background.setMaximumSize(new java.awt.Dimension(960, 540));
-        Background.setMinimumSize(new java.awt.Dimension(960, 540));
         Panel.add(Background);
         Background.setBounds(0, 0, 960, 540);
 
@@ -125,6 +128,12 @@ public class AdminHomeScreen extends javax.swing.JFrame {
     private void FieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FieldUsernameActionPerformed
+
+    private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
+        AdminRegisterScreen page = new AdminRegisterScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonRegisterActionPerformed
 
     /**
      * @param args the command line arguments

@@ -4,17 +4,46 @@
  */
 package views.admin;
 
+import java.awt.Color;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Unknown Account
  */
 public class AdminRegisterScreen extends javax.swing.JFrame {
 
+    public void fixDesign() {
+        FieldUsername.setOpaque(false);
+        FieldUsername.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldPassword.setOpaque(false);
+        FieldPassword.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldEmail.setOpaque(false);
+        FieldEmail.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldFirstName.setOpaque(false);
+        FieldFirstName.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldLastName.setOpaque(false);
+        FieldLastName.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldCPF.setOpaque(false);
+        FieldCPF.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldCelular.setOpaque(false);
+        FieldCelular.setBackground(new Color(0, 0, 0, 0));
+        
+    }
     /**
      * Creates new form AdminRegisterScreen
      */
     public AdminRegisterScreen() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
+        setLocationRelativeTo(null);
+        fixDesign();
     }
 
     /**
@@ -26,21 +55,159 @@ public class AdminRegisterScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Panel = new javax.swing.JPanel();
+        FieldUsername = new javax.swing.JTextField();
+        FieldEmail = new javax.swing.JTextField();
+        FieldPassword = new javax.swing.JPasswordField();
+        FieldFirstName = new javax.swing.JTextField();
+        FieldLastName = new javax.swing.JTextField();
+        FieldCPF = new javax.swing.JFormattedTextField();
+        FieldCelular = new javax.swing.JFormattedTextField();
+        ButtonBack = new javax.swing.JButton();
+        ButtonRegister = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("TrendStyle - Admin Register");
+        setResizable(false);
+
+        Panel.setBackground(new java.awt.Color(255, 255, 255));
+        Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        FieldUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldUsername.setToolTipText("");
+        FieldUsername.setBorder(null);
+        FieldUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldUsernameActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 170, 262, 30));
+
+        FieldEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldEmail.setToolTipText("");
+        FieldEmail.setBorder(null);
+        FieldEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldEmailActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(617, 170, 285, 30));
+
+        FieldPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldPassword.setBorder(null);
+        Panel.add(FieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 170, 260, 30));
+
+        FieldFirstName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldFirstName.setToolTipText("");
+        FieldFirstName.setBorder(null);
+        FieldFirstName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldFirstNameActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldFirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 265, 200, 30));
+
+        FieldLastName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldLastName.setToolTipText("");
+        FieldLastName.setBorder(null);
+        FieldLastName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldLastNameActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 265, 200, 30));
+
+        FieldCPF.setBorder(null);
+        try {
+            FieldCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        FieldCPF.setToolTipText("");
+        FieldCPF.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Panel.add(FieldCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(489, 265, 198, 30));
+
+        FieldCelular.setBorder(null);
+        try {
+            FieldCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        FieldCelular.setToolTipText("");
+        FieldCelular.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Panel.add(FieldCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(705, 265, 198, 30));
+
+        ButtonBack.setBorderPainted(false);
+        ButtonBack.setContentAreaFilled(false);
+        ButtonBack.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonBack.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonBack.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonBackActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 60, 50));
+
+        ButtonRegister.setBorderPainted(false);
+        ButtonRegister.setContentAreaFilled(false);
+        ButtonRegister.setMaximumSize(new java.awt.Dimension(300, 50));
+        ButtonRegister.setMinimumSize(new java.awt.Dimension(300, 50));
+        ButtonRegister.setPreferredSize(new java.awt.Dimension(300, 50));
+        ButtonRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonRegisterActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, 260, 60));
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/adminRegister.png"))); // NOI18N
+        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void FieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldEmailActionPerformed
+
+    private void FieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldUsernameActionPerformed
+
+    private void FieldFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldFirstNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldFirstNameActionPerformed
+
+    private void FieldLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldLastNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldLastNameActionPerformed
+
+    private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
+        AdminHomeScreen page = new AdminHomeScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +245,16 @@ public class AdminRegisterScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
+    private javax.swing.JButton ButtonBack;
+    private javax.swing.JButton ButtonRegister;
+    private javax.swing.JFormattedTextField FieldCPF;
+    private javax.swing.JFormattedTextField FieldCelular;
+    private javax.swing.JTextField FieldEmail;
+    private javax.swing.JTextField FieldFirstName;
+    private javax.swing.JTextField FieldLastName;
+    private javax.swing.JPasswordField FieldPassword;
+    private javax.swing.JTextField FieldUsername;
+    private javax.swing.JPanel Panel;
     // End of variables declaration//GEN-END:variables
 }
