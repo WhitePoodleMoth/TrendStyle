@@ -4,7 +4,9 @@
  */
 package views.admin;
 
+import communication.communication;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 import views.HomeScreen;
 
 /**
@@ -12,7 +14,8 @@ import views.HomeScreen;
  * @author Unknown Account
  */
 public class AdminHomeScreen extends javax.swing.JFrame {
-
+    communication dbAccess = new communication();
+    
     /**
      * Creates new form AdminHomeScreen
      */
@@ -52,6 +55,11 @@ public class AdminHomeScreen extends javax.swing.JFrame {
         ButtonLogin.setMaximumSize(new java.awt.Dimension(300, 50));
         ButtonLogin.setMinimumSize(new java.awt.Dimension(300, 50));
         ButtonLogin.setPreferredSize(new java.awt.Dimension(300, 50));
+        ButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonLoginActionPerformed(evt);
+            }
+        });
         Panel.add(ButtonLogin);
         ButtonLogin.setBounds(550, 330, 320, 60);
 
@@ -134,6 +142,22 @@ public class AdminHomeScreen extends javax.swing.JFrame {
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonRegisterActionPerformed
+
+    private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed
+        String username = FieldUsername.getText().replaceAll("\\s", "").toLowerCase();
+        String password = FieldPassword.getText().replaceAll("\\s", "");
+        if ("".equals(username) || "".equals(password)){
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos de usuário e senha.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (dbAccess.checkAdminLogin(username, password)) {
+                AdminPanel page = new AdminPanel();
+                page.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ButtonLoginActionPerformed
 
     /**
      * @param args the command line arguments

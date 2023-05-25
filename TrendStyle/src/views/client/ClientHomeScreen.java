@@ -4,7 +4,9 @@
  */
 package views.client;
 
+import communication.communication;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 import views.HomeScreen;
 
 /**
@@ -12,7 +14,8 @@ import views.HomeScreen;
  * @author Unknown Account
  */
 public class ClientHomeScreen extends javax.swing.JFrame {
-
+    communication dbAccess = new communication();
+    
     /**
      * Creates new form ClientHomeScreen
      */
@@ -115,7 +118,19 @@ public class ClientHomeScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed
-        // TODO add your handling code here:
+        String username = FieldUsername.getText().replaceAll("\\s", "").toLowerCase();
+        String password = FieldPassword.getText().replaceAll("\\s", "");
+        if ("".equals(username) || "".equals(password)){
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos de usuário e senha.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (dbAccess.checkClientLogin(username, password)) {
+                ClientPanel page = new ClientPanel();
+                page.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_ButtonLoginActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed

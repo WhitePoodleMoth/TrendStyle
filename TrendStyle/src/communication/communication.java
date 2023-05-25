@@ -10,4 +10,11 @@ package communication;
  */
 public class communication {
     
+    public boolean checkAdminLogin(String username, String password) {
+        return ("admin".equals(username) && "admin".equals(password));
+    }
+    
+    public boolean checkClientLogin(String username, String password) {
+        return ("client".equals(username) && "client".equals(password));
+    }
 }
