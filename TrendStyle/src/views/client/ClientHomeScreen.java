@@ -123,7 +123,8 @@ public class ClientHomeScreen extends javax.swing.JFrame {
         if ("".equals(username) || "".equals(password)){
             JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos de usuário e senha.", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (dbAccess.checkClientLogin(username, password)) {
+            int resultID = dbAccess.checkClientLogin(username, password);
+            if (resultID > 0) {
                 ClientPanel page = new ClientPanel();
                 page.setVisible(true);
                 dispose();

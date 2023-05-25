@@ -36,7 +36,26 @@ public class communication {
     }
     }
     
-    public boolean checkClientLogin(String username, String password) {
-        return ("client".equals(username) && "client".equals(password));
+    public int checkClientLogin(String username, String password) {
+        mysql.conectaBanco();
+
+        String consulta = "SELECT * FROM CLIENTE WHERE usuario = '" + username + "' AND senha = '" + password + "'";
+        
+        mysql.executarSQL(consulta);
+
+        ResultSet resultSet = mysql.getResultSet();
+
+        try {
+            if (resultSet.next()) {
+                int userId = resultSet.getInt("ID");
+                mysql.fechaBanco();
+                return userId;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+        return 0;
     }
 }
