@@ -149,7 +149,8 @@ public class AdminHomeScreen extends javax.swing.JFrame {
         if ("".equals(username) || "".equals(password)){
             JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos de usuário e senha.", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (dbAccess.checkAdminLogin(username, password)) {
+            int resultID = dbAccess.checkAdminLogin(username, password);
+            if (resultID > 0) {
                 AdminPanel page = new AdminPanel();
                 page.setVisible(true);
                 dispose();
