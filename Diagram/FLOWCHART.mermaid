@@ -3,11 +3,10 @@ graph LR
 
     home --> admin[Administrador]
     home --> client[Cliente]
-
-    admin --> admin_login[Login]
+    
     admin --> admin_register[Cadastro]
 
-    admin_login --> admin_panel[Painel]
+    admin --> admin_panel[Painel]
 
     admin_panel --> admin_config[Configurações]
     admin_panel --> admin_vendor[Fornecedores]
@@ -20,10 +19,9 @@ graph LR
 
     admin_order --> admin_order_manage[Visualizar/Atualizar]
     
-    client --> client_login[Login]
     client --> client_register[Cadastro]
 
-    client_login --> client_menu[Painel]
+    client --> client_menu[Painel]
 
     client_menu --> client_config[Configurações]
     client_menu --> client_deposit[Depositar]
@@ -32,4 +30,3 @@ graph LR
     client_menu --> client_order[Pedidos]
     client_cart --> client_cart_confirmation[Confirmar Pedido]
     client_cart_confirmation --> client_order
-
