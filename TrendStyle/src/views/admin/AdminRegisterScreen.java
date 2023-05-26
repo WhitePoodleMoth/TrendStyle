@@ -4,14 +4,21 @@
  */
 package views.admin;
 
+import communication.communication;
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+import utils.SHA256;
+import utils.Validator;
 
 /**
  *
  * @author Unknown Account
  */
 public class AdminRegisterScreen extends javax.swing.JFrame {
+    communication dbAccess = new communication();
+    Validator validator = new Validator();
+    SHA256 sha256 = new SHA256();
 
     public void fixDesign() {
         FieldUsername.setOpaque(false);
@@ -36,6 +43,51 @@ public class AdminRegisterScreen extends javax.swing.JFrame {
         FieldCelular.setBackground(new Color(0, 0, 0, 0));
         
     }
+    public boolean validateFields(String email, String cpf) {
+        boolean valid = true;
+        
+        if (!validator.isValidEmail(email)) {
+            valid = false;
+            JOptionPane.showMessageDialog(null, "Por favor, insira um endereço de e-mail válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        if (!validator.isValidCPF(cpf)) {
+            JOptionPane.showMessageDialog(null, "Por favor, insira um CPF válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+            valid = false;
+        }
+        
+        return valid;
+    }
+    
+    public boolean verifyAndRegisterFields() {
+        try {
+            String username      = FieldUsername.getText();
+            String password      = FieldPassword.getText();
+            String email         = FieldEmail.getText();
+            String firstName     = FieldFirstName.getText();
+            String lastName      = FieldLastName.getText();
+            String CPF           = FieldCPF.getValue().toString().replaceAll("-", "").replaceAll("\\.", "");
+            String celular       = FieldCelular.getValue().toString().replaceAll("[^0-9]", "");
+            
+            if (username.isEmpty() || password.isEmpty() || email.isEmpty() || firstName.isEmpty()
+                || lastName.isEmpty() || CPF.isEmpty() || celular.isEmpty()) {
+            throw new Exception();
+            }
+            
+            if (validateFields(email,CPF)) {
+                password = sha256.convertToSHA256(password);
+                if (dbAccess.registerAdmin(username, password, CPF, firstName, lastName, email, celular)) {
+                    JOptionPane.showMessageDialog(null, "Admininstrador criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao criar administrador. Por favor, tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos obrigatórios.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }
+    
     /**
      * Creates new form AdminRegisterScreen
      */
@@ -206,7 +258,11 @@ public class AdminRegisterScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
-        // TODO add your handling code here:
+        if (verifyAndRegisterFields()) {
+            AdminHomeScreen page = new AdminHomeScreen();
+            page.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_ButtonRegisterActionPerformed
 
     /**

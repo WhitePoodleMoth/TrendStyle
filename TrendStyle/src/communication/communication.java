@@ -12,6 +12,20 @@ import java.sql.ResultSet;
 public class communication {
     MySQL mysql = new MySQL();
     
+    public boolean registerAdmin(String username, String password, String cpf, String nome, String sobrenome, String email, String telefone) {
+        mysql.conectaBanco();
+
+        String consulta = "CALL registerAdmin('" + username + "', '" + password + "', '" + cpf + "', '" + nome + "', '" + sobrenome + "', '" + email + "', '" + telefone + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
     public int checkAdminLogin(String username, String password) {
         mysql.conectaBanco();
 
