@@ -7,12 +7,6 @@ A TrendStyle é uma empresa fictícia que tem como principal objetivo possibilit
 ## 👥 Integrantes do Grupo
 
 - 223989 - Cauã Paes Breda
-- 223802 - Gabriel Henrique Pedro
-- 224033 - Gabriel Viegas Dantas
-- 223796 - Gustavo Luz de Brito
-- 223972 - Renan Paulo de Souza
-- 223982 - Renata Morinigo Lima Negrini
-
 
 ## 💻 Tecnologias Utilizadas
 
