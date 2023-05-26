@@ -4,14 +4,21 @@
  */
 package views.client;
 
+import communication.communication;
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+import utils.SHA256;
+import utils.Validator;
 
 /**
  *
  * @author Unknown Account
  */
 public class ClientRegisterScreen extends javax.swing.JFrame {
+    communication dbAccess = new communication();
+    Validator validator = new Validator();
+    SHA256 sha256 = new SHA256();
     
     public void fixDesign() {
         FieldUsername.setOpaque(false);
@@ -49,6 +56,57 @@ public class ClientRegisterScreen extends javax.swing.JFrame {
         
     }
     
+    public boolean validateFields(String email, String cpf) {
+        boolean valid = true;
+        
+        if (!validator.isValidEmail(email)) {
+            valid = false;
+            JOptionPane.showMessageDialog(null, "Por favor, insira um endereço de e-mail válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        if (!validator.isValidCPF(cpf)) {
+            JOptionPane.showMessageDialog(null, "Por favor, insira um CPF válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+            valid = false;
+        }
+        
+        return valid;
+    }
+    
+    public boolean verifyAndRegisterFields() {
+        try {
+            String username      = FieldUsername.getText();
+            String password      = FieldPassword.getText();
+            String email         = FieldEmail.getText();
+            String firstName     = FieldFirstName.getText();
+            String lastName      = FieldLastName.getText();
+            String CPF           = FieldCPF.getValue().toString().replaceAll("-", "").replaceAll("\\.", "");
+            String celular       = FieldCelular.getValue().toString().replaceAll("[^0-9]", "");
+            String estate        = FieldEstate.getSelectedItem().toString();
+            String city          = FieldCity.getText();
+            String CEP           = FieldCEP.getValue().toString().replaceAll("\\.", "");
+            String address       = FieldAddress.getText();
+            String addressNumber = FieldAddressNumber.getText();
+            
+            if (username.isEmpty() || password.isEmpty() || email.isEmpty() || firstName.isEmpty()
+                || lastName.isEmpty() || CPF.isEmpty() || celular.isEmpty() || city.isEmpty()
+                || CEP.isEmpty() || address.isEmpty() || addressNumber.isEmpty()) {
+            throw new Exception();
+            }
+            
+            if (validateFields(email,CPF)) {
+                password = sha256.convertToSHA256(password);
+                if (dbAccess.registerClient(username, password, CPF, firstName, lastName, email, celular, CEP, address, addressNumber, city, estate)) {
+                    JOptionPane.showMessageDialog(null, "Usuário criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao criar usuário. Por favor, tente novamente.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos obrigatórios.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }
+    
     /**
      * Creates new form ClientRegisterScreen
      */
@@ -80,7 +138,7 @@ public class ClientRegisterScreen extends javax.swing.JFrame {
         FieldCity = new javax.swing.JTextField();
         FieldCEP = new javax.swing.JFormattedTextField();
         FieldAddress = new javax.swing.JTextField();
-        FieldAddressNumber = new javax.swing.JFormattedTextField();
+        FieldAddressNumber = new javax.swing.JTextField();
         ButtonBack = new javax.swing.JButton();
         ButtonRegister = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
@@ -189,14 +247,8 @@ public class ClientRegisterScreen extends javax.swing.JFrame {
         });
         Panel.add(FieldAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(383, 359, 403, 30));
 
-        FieldAddressNumber.setBorder(null);
-        try {
-            FieldAddressNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        FieldAddressNumber.setToolTipText("");
         FieldAddressNumber.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldAddressNumber.setBorder(null);
         Panel.add(FieldAddressNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(804, 359, 99, 30));
 
         ButtonBack.setBorderPainted(false);
@@ -265,7 +317,11 @@ public class ClientRegisterScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
-        // TODO add your handling code here:
+        if (verifyAndRegisterFields()) {
+            ClientHomeScreen page = new ClientHomeScreen();
+            page.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_ButtonRegisterActionPerformed
 
     private void FieldAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldAddressActionPerformed
@@ -316,7 +372,7 @@ public class ClientRegisterScreen extends javax.swing.JFrame {
     private javax.swing.JButton ButtonBack;
     private javax.swing.JButton ButtonRegister;
     private javax.swing.JTextField FieldAddress;
-    private javax.swing.JFormattedTextField FieldAddressNumber;
+    private javax.swing.JTextField FieldAddressNumber;
     private javax.swing.JFormattedTextField FieldCEP;
     private javax.swing.JFormattedTextField FieldCPF;
     private javax.swing.JFormattedTextField FieldCelular;
