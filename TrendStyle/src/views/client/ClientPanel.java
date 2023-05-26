@@ -140,7 +140,7 @@ public class ClientPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonShopActionPerformed
 
     private void ButtonWalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonWalletActionPerformed
-        ClientDepositScreen page = new ClientDepositScreen();
+        ClientWalletScreen page = new ClientWalletScreen();
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonWalletActionPerformed
