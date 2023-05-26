@@ -15,7 +15,7 @@ public class communication {
     public boolean registerAdmin(String username, String password, String cpf, String nome, String sobrenome, String email, String telefone) {
         mysql.conectaBanco();
 
-        String consulta = "CALL registerAdmin('" + username + "', '" + password + "', '" + cpf + "', '" + nome + "', '" + sobrenome + "', '" + email + "', '" + telefone + "')";
+        String consulta = "CALL registrarAdmin('" + username + "', '" + password + "', '" + cpf + "', '" + nome + "', '" + sobrenome + "', '" + email + "', '" + telefone + "')";
 
         mysql.executarSQL(consulta);
 
@@ -52,7 +52,7 @@ public class communication {
     public boolean registerClient(String username, String password, String cpf, String nome, String sobrenome, String email, String telefone, String cep, String rua, String numero, String cidade, String estado) {
         mysql.conectaBanco();
 
-        String consulta = "CALL registerClient('" + username + "', '" + password + "', '" + cpf + "', '" + nome + "', '" + sobrenome + "', '" + email + "', '" + telefone + "', '" + cep + "', '" + rua + "', '" + numero + "', '" + cidade + "', '" + estado + "')";
+        String consulta = "CALL registrarCliente('" + username + "', '" + password + "', '" + cpf + "', '" + nome + "', '" + sobrenome + "', '" + email + "', '" + telefone + "', '" + cep + "', '" + rua + "', '" + numero + "', '" + cidade + "', '" + estado + "')";
 
         mysql.executarSQL(consulta);
 
