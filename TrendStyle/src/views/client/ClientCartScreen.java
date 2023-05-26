@@ -11,14 +11,16 @@ import java.awt.Toolkit;
  * @author Unknown Account
  */
 public class ClientCartScreen extends javax.swing.JFrame {
-
+    int ID = 0;
+    
     /**
      * Creates new form ClientCartScreen
      */
-    public ClientCartScreen() {
+    public ClientCartScreen(int _ID) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
+        this.ID = _ID;
     }
 
     /**
@@ -66,7 +68,7 @@ public class ClientCartScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
-        ClientPanel page = new ClientPanel();
+        ClientPanel page = new ClientPanel(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
@@ -101,7 +103,7 @@ public class ClientCartScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClientCartScreen().setVisible(true);
+                new ClientCartScreen(0).setVisible(true);
             }
         });
     }

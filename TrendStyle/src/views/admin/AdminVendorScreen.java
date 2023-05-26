@@ -11,14 +11,16 @@ import java.awt.Toolkit;
  * @author Unknown Account
  */
 public class AdminVendorScreen extends javax.swing.JFrame {
-
+    int ID = 0;
+    
     /**
      * Creates new form AdminVendorScreen
      */
-    public AdminVendorScreen() {
+    public AdminVendorScreen(int _ID) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
+        this.ID = _ID;
     }
 
     /**
@@ -71,7 +73,7 @@ public class AdminVendorScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
-        AdminPanel page = new AdminPanel();
+        AdminPanel page = new AdminPanel(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
@@ -106,7 +108,7 @@ public class AdminVendorScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminVendorScreen().setVisible(true);
+                new AdminVendorScreen(0).setVisible(true);
             }
         });
     }

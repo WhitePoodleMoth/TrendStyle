@@ -164,7 +164,7 @@ public class AdminHomeScreen extends javax.swing.JFrame {
             password = sha256.convertToSHA256(password);
             int resultID = dbAccess.checkAdminLogin(username, password);
             if (resultID > 0) {
-                AdminPanel page = new AdminPanel();
+                AdminPanel page = new AdminPanel(resultID);
                 page.setVisible(true);
                 dispose();
             } else {

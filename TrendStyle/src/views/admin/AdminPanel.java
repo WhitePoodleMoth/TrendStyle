@@ -11,14 +11,16 @@ import java.awt.Toolkit;
  * @author Unknown Account
  */
 public class AdminPanel extends javax.swing.JFrame {
-
+    int ID = 0;
+    
     /**
      * Creates new form AdminPanel
      */
-    public AdminPanel() {
+    public AdminPanel(int _ID) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
+        this.ID = _ID;
     }
 
     /**
@@ -140,31 +142,31 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonProductsActionPerformed
-        AdminProductScreen page = new AdminProductScreen();
+        AdminProductScreen page = new AdminProductScreen(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonProductsActionPerformed
 
     private void ButtonVendorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonVendorsActionPerformed
-        AdminVendorScreen page = new AdminVendorScreen();
+        AdminVendorScreen page = new AdminVendorScreen(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonVendorsActionPerformed
 
     private void ButtonOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOrdersActionPerformed
-        AdminOrderScreen page = new AdminOrderScreen();
+        AdminOrderScreen page = new AdminOrderScreen(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonOrdersActionPerformed
 
     private void ButtonConfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonConfigurationActionPerformed
-        AdminConfigurationScreen page = new AdminConfigurationScreen();
+        AdminConfigurationScreen page = new AdminConfigurationScreen(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonConfigurationActionPerformed
 
     private void ButtonAdministratorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAdministratorActionPerformed
-        AdminAdministratorScreen page = new AdminAdministratorScreen();
+        AdminAdministratorScreen page = new AdminAdministratorScreen(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonAdministratorActionPerformed
@@ -199,7 +201,7 @@ public class AdminPanel extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminPanel().setVisible(true);
+                new AdminPanel(0).setVisible(true);
             }
         });
     }

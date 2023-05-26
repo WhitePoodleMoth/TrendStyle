@@ -138,7 +138,7 @@ public class ClientHomeScreen extends javax.swing.JFrame {
             password = sha256.convertToSHA256(password);
             int resultID = dbAccess.checkClientLogin(username, password);
             if (resultID > 0) {
-                ClientPanel page = new ClientPanel();
+                ClientPanel page = new ClientPanel(resultID);
                 page.setVisible(true);
                 dispose();
             } else {

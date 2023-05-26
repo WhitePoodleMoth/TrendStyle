@@ -11,14 +11,16 @@ import java.awt.Toolkit;
  * @author Unknown Account
  */
 public class ClientPanel extends javax.swing.JFrame {
-
+    int ID = 0;
+    
     /**
      * Creates new form ClientPanel
      */
-    public ClientPanel() {
+    public ClientPanel(int _ID) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
+        this.ID = _ID;
     }
 
     /**
@@ -134,31 +136,31 @@ public class ClientPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonShopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonShopActionPerformed
-        ClientShopScreen page = new ClientShopScreen();
+        ClientShopScreen page = new ClientShopScreen(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonShopActionPerformed
 
     private void ButtonWalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonWalletActionPerformed
-        ClientWalletScreen page = new ClientWalletScreen();
+        ClientWalletScreen page = new ClientWalletScreen(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonWalletActionPerformed
 
     private void ButtonConfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonConfigurationActionPerformed
-        ClientConfigurationScreen page = new ClientConfigurationScreen();
+        ClientConfigurationScreen page = new ClientConfigurationScreen(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonConfigurationActionPerformed
 
     private void ButtonOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOrderActionPerformed
-        ClientOrderScreen page = new ClientOrderScreen();
+        ClientOrderScreen page = new ClientOrderScreen(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonOrderActionPerformed
 
     private void ButtonCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCartActionPerformed
-        ClientCartScreen page = new ClientCartScreen();
+        ClientCartScreen page = new ClientCartScreen(this.ID);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonCartActionPerformed
@@ -199,7 +201,7 @@ public class ClientPanel extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClientPanel().setVisible(true);
+                new ClientPanel(0).setVisible(true);
             }
         });
     }
