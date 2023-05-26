@@ -73,7 +73,7 @@ public class ClientRegisterScreen extends javax.swing.JFrame {
     
     public boolean verifyAndRegisterFields() {
         try {
-            String username      = FieldUsername.getText();
+            String username      = FieldUsername.getText().replaceAll("\\s", "").toLowerCase();
             String password      = FieldPassword.getText();
             String email         = FieldEmail.getText();
             String firstName     = FieldFirstName.getText();
