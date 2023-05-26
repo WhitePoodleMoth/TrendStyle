@@ -7,6 +7,7 @@ package views.admin;
 import communication.communication;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import utils.SHA256;
 import views.HomeScreen;
 
 /**
@@ -15,6 +16,7 @@ import views.HomeScreen;
  */
 public class AdminHomeScreen extends javax.swing.JFrame {
     communication dbAccess = new communication();
+    SHA256 sha256 = new SHA256();
     
     /**
      * Creates new form AdminHomeScreen
@@ -149,6 +151,7 @@ public class AdminHomeScreen extends javax.swing.JFrame {
         if ("".equals(username) || "".equals(password)){
             JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos de usuário e senha.", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
+            password = sha256.convertToSHA256(password);
             int resultID = dbAccess.checkAdminLogin(username, password);
             if (resultID > 0) {
                 AdminPanel page = new AdminPanel();

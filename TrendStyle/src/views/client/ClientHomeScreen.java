@@ -7,6 +7,7 @@ package views.client;
 import communication.communication;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import utils.SHA256;
 import views.HomeScreen;
 
 /**
@@ -15,6 +16,7 @@ import views.HomeScreen;
  */
 public class ClientHomeScreen extends javax.swing.JFrame {
     communication dbAccess = new communication();
+    SHA256 sha256 = new SHA256();
     
     /**
      * Creates new form ClientHomeScreen
@@ -123,6 +125,7 @@ public class ClientHomeScreen extends javax.swing.JFrame {
         if ("".equals(username) || "".equals(password)){
             JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos de usuário e senha.", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
+            password = sha256.convertToSHA256(password);
             int resultID = dbAccess.checkClientLogin(username, password);
             if (resultID > 0) {
                 ClientPanel page = new ClientPanel();
