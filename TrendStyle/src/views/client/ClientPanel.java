@@ -4,6 +4,8 @@
  */
 package views.client;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author Unknown Account
@@ -15,6 +17,8 @@ public class ClientPanel extends javax.swing.JFrame {
      */
     public ClientPanel() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -26,21 +30,144 @@ public class ClientPanel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Panel = new javax.swing.JPanel();
+        ButtonBack = new javax.swing.JButton();
+        ButtonShop = new javax.swing.JButton();
+        ButtonWallet = new javax.swing.JButton();
+        ButtonConfiguration = new javax.swing.JButton();
+        ButtonOrder = new javax.swing.JButton();
+        ButtonCart = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("TrendStyle - Client Panel");
+
+        Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ButtonBack.setBorderPainted(false);
+        ButtonBack.setContentAreaFilled(false);
+        ButtonBack.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonBack.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonBack.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonBackActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 120, 50));
+
+        ButtonShop.setBorderPainted(false);
+        ButtonShop.setContentAreaFilled(false);
+        ButtonShop.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonShop.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonShop.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonShop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonShopActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonShop, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 140, 180));
+
+        ButtonWallet.setBorderPainted(false);
+        ButtonWallet.setContentAreaFilled(false);
+        ButtonWallet.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonWallet.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonWallet.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonWallet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonWalletActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonWallet, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 140, 160));
+
+        ButtonConfiguration.setBorderPainted(false);
+        ButtonConfiguration.setContentAreaFilled(false);
+        ButtonConfiguration.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonConfiguration.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonConfiguration.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonConfiguration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonConfigurationActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonConfiguration, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, 130, 170));
+
+        ButtonOrder.setBorderPainted(false);
+        ButtonOrder.setContentAreaFilled(false);
+        ButtonOrder.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonOrder.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonOrder.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonOrderActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 120, 160));
+
+        ButtonCart.setBorderPainted(false);
+        ButtonCart.setContentAreaFilled(false);
+        ButtonCart.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonCart.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonCart.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonCart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCartActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 340, 170, 180));
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/clientPanel.png"))); // NOI18N
+        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ButtonShopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonShopActionPerformed
+        ClientShopScreen page = new ClientShopScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonShopActionPerformed
+
+    private void ButtonWalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonWalletActionPerformed
+        ClientDepositScreen page = new ClientDepositScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonWalletActionPerformed
+
+    private void ButtonConfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonConfigurationActionPerformed
+        ClientConfigurationScreen page = new ClientConfigurationScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonConfigurationActionPerformed
+
+    private void ButtonOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOrderActionPerformed
+        ClientOrderScreen page = new ClientOrderScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonOrderActionPerformed
+
+    private void ButtonCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCartActionPerformed
+        ClientCartScreen page = new ClientCartScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonCartActionPerformed
+
+    private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
+        ClientHomeScreen page = new ClientHomeScreen();
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +205,13 @@ public class ClientPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
+    private javax.swing.JButton ButtonBack;
+    private javax.swing.JButton ButtonCart;
+    private javax.swing.JButton ButtonConfiguration;
+    private javax.swing.JButton ButtonOrder;
+    private javax.swing.JButton ButtonShop;
+    private javax.swing.JButton ButtonWallet;
+    private javax.swing.JPanel Panel;
     // End of variables declaration//GEN-END:variables
 }
