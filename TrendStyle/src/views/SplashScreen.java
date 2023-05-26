@@ -68,8 +68,8 @@ public class SplashScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         Panel = new javax.swing.JPanel();
-        LoadingGif = new javax.swing.JLabel();
         ProgressBar = new javax.swing.JProgressBar();
+        LoadingGif = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TrendStyle - Loading");
@@ -77,46 +77,28 @@ public class SplashScreen extends javax.swing.JFrame {
         setResizable(false);
 
         Panel.setBackground(new java.awt.Color(255, 255, 255));
-
-        LoadingGif.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LoadingGif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/loading.gif"))); // NOI18N
+        Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ProgressBar.setBackground(new java.awt.Color(255, 255, 255));
-        ProgressBar.setForeground(new java.awt.Color(203, 184, 193));
+        ProgressBar.setForeground(new java.awt.Color(0, 255, 255));
         ProgressBar.setBorder(null);
         ProgressBar.setBorderPainted(false);
         ProgressBar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Panel.add(ProgressBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 940, 10));
 
-        javax.swing.GroupLayout PanelLayout = new javax.swing.GroupLayout(Panel);
-        Panel.setLayout(PanelLayout);
-        PanelLayout.setHorizontalGroup(
-            PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LoadingGif, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        PanelLayout.setVerticalGroup(
-            PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(LoadingGif, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        LoadingGif.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LoadingGif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/loading.gif"))); // NOI18N
+        Panel.add(LoadingGif, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 540));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
