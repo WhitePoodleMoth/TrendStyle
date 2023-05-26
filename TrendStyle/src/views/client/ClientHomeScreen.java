@@ -5,6 +5,7 @@
 package views.client;
 
 import communication.communication;
+import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import utils.SHA256;
@@ -18,6 +19,14 @@ public class ClientHomeScreen extends javax.swing.JFrame {
     communication dbAccess = new communication();
     SHA256 sha256 = new SHA256();
     
+    public void fixDesign() {
+        FieldUsername.setOpaque(false);
+        FieldUsername.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldPassword.setOpaque(false);
+        FieldPassword.setBackground(new Color(0, 0, 0, 0));
+    }
+    
     /**
      * Creates new form ClientHomeScreen
      */
@@ -25,6 +34,7 @@ public class ClientHomeScreen extends javax.swing.JFrame {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
+        fixDesign();
     }
 
     /**
