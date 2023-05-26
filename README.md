@@ -13,8 +13,8 @@ A TrendStyle é uma empresa fictícia que tem como principal objetivo possibilit
 - Java
 - NetBeans
 - Mermaid.js
-- Trello
-- SQLite
+- MySQL
+- Canva
 
 ## 📜 Licença
 
