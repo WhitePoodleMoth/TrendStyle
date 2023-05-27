@@ -43,6 +43,7 @@ public class ClientPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TrendStyle - Client Panel");
+        setResizable(false);
 
         Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
