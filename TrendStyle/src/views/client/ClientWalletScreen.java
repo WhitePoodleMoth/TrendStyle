@@ -4,14 +4,67 @@
  */
 package views.client;
 
+import communication.communication;
+import java.awt.Color;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Unknown Account
  */
 public class ClientWalletScreen extends javax.swing.JFrame {
+    communication dbAccess = new communication();
     int ID = 0;
+    
+    public void fixDesign() {
+        FieldAmount.setOpaque(false);
+        FieldAmount.setBackground(new Color(0, 0, 0, 0));
+    }
+    
+    public boolean updateTable() {
+        DefaultTableModel tableModel = new DefaultTableModel(
+                new Object[]{"ID", "Nome", "CPF", "Valor", "Data"},0
+        ){
+            // Making cells non-editable
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        ArrayList<ArrayList<?>> deposits = dbAccess.collectClientDeposits(this.ID);
+        ArrayList<Integer> idClientes = (ArrayList<Integer>) deposits.get(0);
+        ArrayList<Integer> IDs = (ArrayList<Integer>) deposits.get(1);
+        ArrayList<String> nomes = (ArrayList<String>) deposits.get(2);
+        ArrayList<String> cpfs = (ArrayList<String>) deposits.get(3);
+        ArrayList<Double> valores = (ArrayList<Double>) deposits.get(4);
+        ArrayList<String> datas = (ArrayList<String>) deposits.get(5);
+
+        // Iterating in reverse order
+        for (int i = IDs.size() - 1; i >= 0; i--) {
+            int id = IDs.get(i);
+            String nome = nomes.get(i);
+            String cpf = cpfs.get(i);
+            double valor = valores.get(i);
+            String data = datas.get(i);
+
+            tableModel.addRow(new Object[]{id, nome, cpf, valor, data});
+        }
+
+        Table = new JTable(tableModel);
+        ScrollPane.setViewportView(Table);
+        return true;
+    }
+    
+    public void updatePage() {
+        ArrayList clientData = dbAccess.collectClientData(this.ID);
+        Balance.setText(String.valueOf(clientData.get(3)));
+        updateTable();
+    }
     
     /**
      * Creates new form ClientDepositScreen
@@ -21,6 +74,8 @@ public class ClientWalletScreen extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
         this.ID = _ID;
+        fixDesign();
+        updatePage();
     }
 
     /**
@@ -34,6 +89,12 @@ public class ClientWalletScreen extends javax.swing.JFrame {
 
         Panel = new javax.swing.JPanel();
         ButtonBack = new javax.swing.JButton();
+        Balance = new javax.swing.JLabel();
+        FieldAmount = new javax.swing.JTextField();
+        ButtonDeposit = new javax.swing.JButton();
+        ScrollPane = new javax.swing.JScrollPane();
+        Table = new javax.swing.JTable();
+        Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TrendStyle - Client Wallet");
@@ -51,7 +112,66 @@ public class ClientWalletScreen extends javax.swing.JFrame {
                 ButtonBackActionPerformed(evt);
             }
         });
-        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 60, 50));
+
+        Balance.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Balance.setText("0");
+        Panel.add(Balance, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 150, 40));
+
+        FieldAmount.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        FieldAmount.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        FieldAmount.setToolTipText("");
+        FieldAmount.setBorder(null);
+        FieldAmount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldAmountActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 410, 240, 40));
+
+        ButtonDeposit.setBorderPainted(false);
+        ButtonDeposit.setContentAreaFilled(false);
+        ButtonDeposit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonDepositActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonDeposit, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 470, 300, 50));
+
+        ScrollPane.setBorder(null);
+
+        Table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "CPF", "Valor", "Data"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        ScrollPane.setViewportView(Table);
+
+        Panel.add(ScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 137, 840, 270));
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/clientWallet.png"))); // NOI18N
+        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,6 +196,31 @@ public class ClientWalletScreen extends javax.swing.JFrame {
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void FieldAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldAmountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldAmountActionPerformed
+
+    private void ButtonDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDepositActionPerformed
+        try {
+            double amount = Double.parseDouble(FieldAmount.getText());
+            if (amount>0 && amount<10000) {
+                if (dbAccess.makeDeposit(this.ID, amount)) {
+                    JOptionPane.showMessageDialog(null, "Depósito de " + amount + " reais realizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    ClientWalletScreen page = new ClientWalletScreen(this.ID);
+                    page.setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro ao realizar o depósito.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "O valor do depósito deve estar entre 0 e 10.000 reais.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valor inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ButtonDepositActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,7 +259,13 @@ public class ClientWalletScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
+    private javax.swing.JLabel Balance;
     private javax.swing.JButton ButtonBack;
+    private javax.swing.JButton ButtonDeposit;
+    private javax.swing.JTextField FieldAmount;
     private javax.swing.JPanel Panel;
+    private javax.swing.JScrollPane ScrollPane;
+    private javax.swing.JTable Table;
     // End of variables declaration//GEN-END:variables
 }

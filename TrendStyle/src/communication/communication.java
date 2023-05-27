@@ -4,6 +4,7 @@
  */
 package communication;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -84,5 +85,97 @@ public class communication {
             mysql.fechaBanco();
         }
         return 0;
+    }
+    public ArrayList collectClientData(int id) {
+        ArrayList clientData = new ArrayList<>();
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM clienteData WHERE ID = "+id;
+            
+            mysql.executarSQL(consulta);
+            
+            ResultSet resultSet = mysql.getResultSet();
+
+            if (resultSet.next()) {
+                try {
+                    clientData.add(resultSet.getString("nome"));
+                    clientData.add(resultSet.getString("cpf"));
+                    clientData.add(resultSet.getString("email"));
+                    clientData.add(resultSet.getDouble("saldo"));
+                } catch (Exception ex) {
+                    clientData = new ArrayList<>();
+                    clientData.add("Nome");
+                    clientData.add("CPF");
+                    clientData.add("Email");
+                    clientData.add("0");
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+        return clientData;
+    }
+    
+    public ArrayList<ArrayList<?>> collectClientDeposits(int id) {
+        ArrayList<Integer> idClientes = new ArrayList<>();
+        ArrayList<Integer> IDs = new ArrayList<>();
+        ArrayList<String> nomes = new ArrayList<>();
+        ArrayList<String> cpfs = new ArrayList<>();
+        ArrayList<Double> valores = new ArrayList<>();
+        ArrayList<String> datas = new ArrayList<>();
+
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM depositosCliente WHERE id_cliente = " + id;
+
+            mysql.executarSQL(consulta);
+
+            ResultSet resultSet = mysql.getResultSet();
+
+            while (resultSet.next()) {
+                try {
+                    idClientes.add(resultSet.getInt("id_cliente"));
+                    IDs.add(resultSet.getInt("ID"));
+                    nomes.add(resultSet.getString("nome"));
+                    cpfs.add(resultSet.getString("cpf"));
+                    valores.add(resultSet.getDouble("valor"));
+                    datas.add(resultSet.getTimestamp("data_deposito").toString());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+
+        ArrayList<ArrayList<?>> depositsData = new ArrayList<>();
+        depositsData.add(idClientes);
+        depositsData.add(IDs);
+        depositsData.add(nomes);
+        depositsData.add(cpfs);
+        depositsData.add(valores);
+        depositsData.add(datas);
+
+        return depositsData;
+    }
+    
+    public boolean makeDeposit(int id, double value) {
+        mysql.conectaBanco();
+
+        String consulta = "CALL realizarDeposito('" + id + "', '" + value + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
     }
 }
