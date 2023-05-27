@@ -141,13 +141,13 @@
             <Component class="javax.swing.JTable" name="Table">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
-                    <Column editable="false" title="ID" type="java.lang.Integer"/>
-                    <Column editable="false" title="Nome" type="java.lang.String"/>
-                    <Column editable="false" title="CPF" type="java.lang.String"/>
-                    <Column editable="false" title="Valor" type="java.lang.Double"/>
-                    <Column editable="false" title="Data" type="java.lang.String"/>
-                  </Table>
+                  <Table columnCount="0" rowCount="4"/>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0"/>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
             </Component>

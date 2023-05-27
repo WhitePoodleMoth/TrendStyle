@@ -178,4 +178,51 @@ public class communication {
 
         return success;
     }
+    
+    public ArrayList<ArrayList<?>> collectShoppingCartItems(int id) {
+        ArrayList<Integer> idClientes = new ArrayList<>();
+        ArrayList<Integer> idProdutos = new ArrayList<>();
+        ArrayList<String> nomes = new ArrayList<>();
+        ArrayList<Double> valores = new ArrayList<>();
+        ArrayList<Integer> quantidades = new ArrayList<>();
+        ArrayList<Double> totais = new ArrayList<>();
+
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM visualizarCarrinho WHERE id_cliente = " + id;
+
+            mysql.executarSQL(consulta);
+
+            ResultSet resultSet = mysql.getResultSet();
+
+            while (resultSet.next()) {
+                try {
+                    idClientes.add(resultSet.getInt("id_cliente"));
+                    idProdutos.add(resultSet.getInt("id_produto"));
+                    nomes.add(resultSet.getString("nome"));
+                    valores.add(resultSet.getDouble("valor"));
+                    quantidades.add(resultSet.getInt("quantidade"));
+                    totais.add(resultSet.getDouble("total"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+
+        ArrayList<ArrayList<?>> cartData = new ArrayList<>();
+        cartData.add(idClientes);
+        cartData.add(idProdutos);
+        cartData.add(nomes);
+        cartData.add(valores);
+        cartData.add(quantidades);
+        cartData.add(totais);
+
+        return cartData;
+    }
+
 }
