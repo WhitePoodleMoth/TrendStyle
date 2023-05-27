@@ -116,7 +116,7 @@ public class ClientWalletScreen extends javax.swing.JFrame {
 
         Balance.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Balance.setText("0");
-        Panel.add(Balance, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 150, 40));
+        Panel.add(Balance, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 360, 40));
 
         FieldAmount.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         FieldAmount.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
