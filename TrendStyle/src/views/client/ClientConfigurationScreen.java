@@ -4,7 +4,10 @@
  */
 package views.client;
 
+import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -12,6 +15,39 @@ import java.awt.Toolkit;
  */
 public class ClientConfigurationScreen extends javax.swing.JFrame {
     int ID = 0;
+    
+    public void fixDesign() {
+        FieldUsername.setOpaque(false);
+        FieldUsername.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldEmail.setOpaque(false);
+        FieldEmail.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldFirstName.setOpaque(false);
+        FieldFirstName.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldLastName.setOpaque(false);
+        FieldLastName.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldCPF.setOpaque(false);
+        FieldCPF.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldCelular.setOpaque(false);
+        FieldCelular.setBackground(new Color(0, 0, 0, 0));
+
+        FieldCity.setOpaque(false);
+        FieldCity.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldCEP.setOpaque(false);
+        FieldCEP.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldAddress.setOpaque(false);
+        FieldAddress.setBackground(new Color(0, 0, 0, 0));
+        
+        FieldAddressNumber.setOpaque(false);
+        FieldAddressNumber.setBackground(new Color(0, 0, 0, 0));
+        
+    }
     
     /**
      * Creates new form ClientConfigurationScreen
@@ -21,6 +57,7 @@ public class ClientConfigurationScreen extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
         this.ID = _ID;
+        fixDesign();
     }
 
     /**
@@ -34,6 +71,21 @@ public class ClientConfigurationScreen extends javax.swing.JFrame {
 
         Panel = new javax.swing.JPanel();
         ButtonBack = new javax.swing.JButton();
+        FieldUsername = new javax.swing.JTextField();
+        FieldEmail = new javax.swing.JTextField();
+        FieldFirstName = new javax.swing.JTextField();
+        FieldLastName = new javax.swing.JTextField();
+        FieldCPF = new javax.swing.JFormattedTextField();
+        FieldCelular = new javax.swing.JFormattedTextField();
+        FieldEstate = new javax.swing.JComboBox<>();
+        FieldAddressNumber = new javax.swing.JTextField();
+        FieldAddress = new javax.swing.JTextField();
+        FieldCEP = new javax.swing.JFormattedTextField();
+        FieldCity = new javax.swing.JTextField();
+        ButtonUpdatePassword = new javax.swing.JButton();
+        ButtonDelete = new javax.swing.JButton();
+        ButtonUpdateClient = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TrendStyle - Client Configuration");
@@ -51,7 +103,148 @@ public class ClientConfigurationScreen extends javax.swing.JFrame {
                 ButtonBackActionPerformed(evt);
             }
         });
-        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 60, 50));
+
+        FieldUsername.setEditable(false);
+        FieldUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldUsername.setToolTipText("");
+        FieldUsername.setBorder(null);
+        FieldUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldUsernameActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(617, 171, 286, 30));
+
+        FieldEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldEmail.setToolTipText("");
+        FieldEmail.setBorder(null);
+        FieldEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldEmailActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 263, 276, 30));
+
+        FieldFirstName.setEditable(false);
+        FieldFirstName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldFirstName.setToolTipText("");
+        FieldFirstName.setBorder(null);
+        FieldFirstName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldFirstNameActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldFirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 171, 168, 30));
+
+        FieldLastName.setEditable(false);
+        FieldLastName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldLastName.setToolTipText("");
+        FieldLastName.setBorder(null);
+        FieldLastName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldLastNameActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 171, 168, 30));
+
+        FieldCPF.setEditable(false);
+        FieldCPF.setBorder(null);
+        try {
+            FieldCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        FieldCPF.setToolTipText("");
+        FieldCPF.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Panel.add(FieldCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(431, 171, 168, 30));
+
+        FieldCelular.setBorder(null);
+        try {
+            FieldCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        FieldCelular.setToolTipText("");
+        FieldCelular.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Panel.add(FieldCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 263, 183, 30));
+
+        FieldEstate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldEstate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SP", "MG", "RJ", "BA", "PR", "RS", "PE", "CE", "PA", "SC", "MA", "GO", "AM", "ES", "PB", "RN", "MT", "AL", "PI", "DF", "MS", "SE", "RO", "TO", "AC", "AP", "RR" }));
+        Panel.add(FieldEstate, new org.netbeans.lib.awtextra.AbsoluteConstraints(669, 260, 106, 36));
+
+        FieldAddressNumber.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldAddressNumber.setBorder(null);
+        Panel.add(FieldAddressNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 351, 103, 30));
+
+        FieldAddress.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldAddress.setToolTipText("");
+        FieldAddress.setBorder(null);
+        FieldAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldAddressActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 351, 355, 30));
+
+        FieldCEP.setBorder(null);
+        try {
+            FieldCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        FieldCEP.setToolTipText("");
+        FieldCEP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Panel.add(FieldCEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(549, 263, 107, 30));
+
+        FieldCity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FieldCity.setToolTipText("");
+        FieldCity.setBorder(null);
+        FieldCity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FieldCityActionPerformed(evt);
+            }
+        });
+        Panel.add(FieldCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(789, 263, 114, 30));
+
+        ButtonUpdatePassword.setBorderPainted(false);
+        ButtonUpdatePassword.setContentAreaFilled(false);
+        ButtonUpdatePassword.setMaximumSize(new java.awt.Dimension(300, 50));
+        ButtonUpdatePassword.setMinimumSize(new java.awt.Dimension(300, 50));
+        ButtonUpdatePassword.setPreferredSize(new java.awt.Dimension(300, 50));
+        ButtonUpdatePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonUpdatePasswordActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonUpdatePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 430, 250, 60));
+
+        ButtonDelete.setBorderPainted(false);
+        ButtonDelete.setContentAreaFilled(false);
+        ButtonDelete.setMaximumSize(new java.awt.Dimension(300, 50));
+        ButtonDelete.setMinimumSize(new java.awt.Dimension(300, 50));
+        ButtonDelete.setPreferredSize(new java.awt.Dimension(300, 50));
+        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonDeleteActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 250, 60));
+
+        ButtonUpdateClient.setBorderPainted(false);
+        ButtonUpdateClient.setContentAreaFilled(false);
+        ButtonUpdateClient.setMaximumSize(new java.awt.Dimension(300, 50));
+        ButtonUpdateClient.setMinimumSize(new java.awt.Dimension(300, 50));
+        ButtonUpdateClient.setPreferredSize(new java.awt.Dimension(300, 50));
+        ButtonUpdateClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonUpdateClientActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonUpdateClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 430, 170, 60));
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/clientConfiguration.png"))); // NOI18N
+        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,6 +269,129 @@ public class ClientConfigurationScreen extends javax.swing.JFrame {
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void FieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldUsernameActionPerformed
+
+    private void FieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldEmailActionPerformed
+
+    private void FieldFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldFirstNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldFirstNameActionPerformed
+
+    private void FieldLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldLastNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldLastNameActionPerformed
+
+    private void FieldAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldAddressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldAddressActionPerformed
+
+    private void FieldCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FieldCityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FieldCityActionPerformed
+
+    private void ButtonUpdateClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateClientActionPerformed
+        if (FieldEmail.getText().isEmpty() || FieldCelular.getText().isEmpty() ||
+            FieldCity.getText().isEmpty() || FieldCEP.getText().isEmpty() ||
+            FieldAddress.getText().isEmpty() || FieldAddressNumber.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, 
+                "<html><body><p style='width: 200px;'>Por favor, preencha todos os campos antes de atualizar a sua conta.</p></body></html>",
+                "Erro na Atualização", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int result = JOptionPane.showConfirmDialog(null, 
+            "<html><body><p style='width: 200px;'>Você tem certeza que deseja atualizar sua conta?</p></body></html>", 
+            "Confirmação de Atualização", 
+            JOptionPane.YES_NO_OPTION);
+
+        if(result == JOptionPane.YES_OPTION) {
+            if (true) {
+                JOptionPane.showMessageDialog(null, 
+                "<html><body><p style='width: 200px;'>A sua conta foi atualizada com sucesso!</p></body></html>",
+                "Atualização Concluída", 
+                JOptionPane.INFORMATION_MESSAGE);
+
+                ClientConfigurationScreen page = new ClientConfigurationScreen(this.ID);
+                page.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, 
+                "<html><body><p style='width: 200px;'>Oops! Algo deu errado durante a atualização da sua conta. Por favor, tente novamente.</p></body></html>",
+                "Erro na Atualização", 
+                JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ButtonUpdateClientActionPerformed
+
+    private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
+        int result = JOptionPane.showConfirmDialog(null, 
+            "<html><body><p style='width: 200px;'>Você tem certeza que deseja excluir sua conta? Esta ação é irreversível.</p></body></html>", 
+            "Confirmação de Exclusão", 
+            JOptionPane.YES_NO_OPTION);
+
+        if(result == JOptionPane.YES_OPTION) {
+            if (true) {
+                JOptionPane.showMessageDialog(null, 
+                "<html><body><p style='width: 200px;'>A sua conta foi excluída com sucesso. Lamentamos vê-lo partir.</p></body></html>",
+                "Exclusão Concluída", 
+                JOptionPane.INFORMATION_MESSAGE);
+                ClientHomeScreen page = new ClientHomeScreen();
+                page.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, 
+                "<html><body><p style='width: 200px;'>Oops! Algo deu errado durante a exclusão da sua conta. Por favor, tente novamente.</p></body></html>",
+                "Erro na Exclusão", 
+                JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ButtonDeleteActionPerformed
+
+    private void ButtonUpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdatePasswordActionPerformed
+        JPasswordField passwordField = new JPasswordField();
+        JPasswordField confirmPasswordField = new JPasswordField();
+
+        Object[] message = {
+            "Digite a nova senha:", passwordField,
+            "Confirme a nova senha:", confirmPasswordField,
+        };
+
+        int option = JOptionPane.showConfirmDialog(null, message, "Alterar Senha", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            String password = new String(passwordField.getPassword());
+            String confirmPassword = new String(confirmPasswordField.getPassword());
+
+            if (password.isEmpty() || confirmPassword.isEmpty()) {
+                JOptionPane.showMessageDialog(null, 
+                "<html><body><p style='width: 200px;'>Por favor, preencha ambos os campos de senha.</p></body></html>",
+                "Erro na Atualização", 
+                JOptionPane.ERROR_MESSAGE);
+            } else if (password.equals(confirmPassword)) {
+                if (true) {
+                    JOptionPane.showMessageDialog(null, 
+                    "<html><body><p style='width: 200px;'>A sua senha foi atualizada com sucesso!</p></body></html>",
+                    "Atualização Concluída", 
+                    JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, 
+                    "<html><body><p style='width: 200px;'>Oops! Algo deu errado durante a atualização da sua senha. Por favor, tente novamente.</p></body></html>",
+                    "Erro na Atualização", 
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, 
+                "<html><body><p style='width: 200px;'>As senhas inseridas não são iguais. Por favor, tente novamente.</p></body></html>",
+                "Erro na Atualização", 
+                JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ButtonUpdatePasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -113,7 +429,22 @@ public class ClientConfigurationScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
     private javax.swing.JButton ButtonBack;
+    private javax.swing.JButton ButtonDelete;
+    private javax.swing.JButton ButtonUpdateClient;
+    private javax.swing.JButton ButtonUpdatePassword;
+    private javax.swing.JTextField FieldAddress;
+    private javax.swing.JTextField FieldAddressNumber;
+    private javax.swing.JFormattedTextField FieldCEP;
+    private javax.swing.JFormattedTextField FieldCPF;
+    private javax.swing.JFormattedTextField FieldCelular;
+    private javax.swing.JTextField FieldCity;
+    private javax.swing.JTextField FieldEmail;
+    private javax.swing.JComboBox<String> FieldEstate;
+    private javax.swing.JTextField FieldFirstName;
+    private javax.swing.JTextField FieldLastName;
+    private javax.swing.JTextField FieldUsername;
     private javax.swing.JPanel Panel;
     // End of variables declaration//GEN-END:variables
 }
