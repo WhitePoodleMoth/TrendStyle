@@ -4,15 +4,82 @@
  */
 package views.client;
 
+import communication.communication;
 import java.awt.Toolkit;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Unknown Account
  */
 public class ClientCartScreen extends javax.swing.JFrame {
+    communication dbAccess = new communication();
     int ID = 0;
+    double clientBalance = 0;
+    double cartValue = 0;
     
+    public boolean updateTable() {
+        DefaultTableModel tableModel = new DefaultTableModel(
+                new Object[]{"ID", "Nome", "Valor", "Quantidade", "Total"}, 0
+        ) {
+            // Making cells non-editable
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        ArrayList<ArrayList<?>> cartItems = dbAccess.collectShoppingCartItems(this.ID);
+        ArrayList<Integer> idClientes = (ArrayList<Integer>) cartItems.get(0);
+        ArrayList<Integer> idProdutos = (ArrayList<Integer>) cartItems.get(1);
+        ArrayList<String> nomes = (ArrayList<String>) cartItems.get(2);
+        ArrayList<Double> valores = (ArrayList<Double>) cartItems.get(3);
+        ArrayList<Integer> quantidades = (ArrayList<Integer>) cartItems.get(4);
+        ArrayList<Double> totais = (ArrayList<Double>) cartItems.get(5);
+
+        // Iterating in reverse order
+        for (int i = idProdutos.size() - 1; i >= 0; i--) {
+            int idProduto = idProdutos.get(i);
+            String nome = nomes.get(i);
+            double valor = valores.get(i);
+            int quantidade = quantidades.get(i);
+            double total = totais.get(i);
+            total = Double.valueOf(new DecimalFormat("#.00").format(total));
+
+            tableModel.addRow(new Object[]{idProduto, nome, valor, quantidade, total});
+        }
+
+        Table = new JTable(tableModel);
+        ScrollPane.setViewportView(Table);
+        return true;
+    }
+    
+    public void updatePage() {
+        ArrayList clientData = dbAccess.collectClientData(this.ID);
+        this.clientBalance = (double) clientData.get(3);
+        Balance.setText(String.valueOf(this.clientBalance));
+        ArrayList cartSummary = dbAccess.collectCartSummary(this.ID);
+        if (cartSummary.size() >= 2) {
+            this.cartValue = (double) cartSummary.get(1);
+            if (clientBalance<cartValue) {
+                JOptionPane.showMessageDialog(null, 
+                    "<html><body><p style='width: 200px;'>Olá! Parece que seu carrinho está recheado de ótimos itens, somando um total de " 
+                    + String.format("%.2f", this.cartValue) 
+                    + " reais. <br><br>Para finalizar a compra, você precisará adicionar mais "
+                    + String.format("%.2f", this.cartValue - this.clientBalance)
+                    + " reais à sua conta, ou talvez remover alguns itens do carrinho. Obrigado!</p></body></html>", 
+                    "Atualização do Carrinho", 
+                    JOptionPane.WARNING_MESSAGE);
+            }
+            CartValue.setText(String.valueOf(cartValue));
+        }
+        updateTable();
+    }
+
     /**
      * Creates new form ClientCartScreen
      */
@@ -21,6 +88,7 @@ public class ClientCartScreen extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
         this.ID = _ID;
+        updatePage();
     }
 
     /**
@@ -34,6 +102,12 @@ public class ClientCartScreen extends javax.swing.JFrame {
 
         Panel = new javax.swing.JPanel();
         ButtonBack = new javax.swing.JButton();
+        Balance = new javax.swing.JLabel();
+        CartValue = new javax.swing.JLabel();
+        ScrollPane = new javax.swing.JScrollPane();
+        Table = new javax.swing.JTable();
+        ButtonConfirm = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TrendStyle - Client Cart");
@@ -51,7 +125,44 @@ public class ClientCartScreen extends javax.swing.JFrame {
                 ButtonBackActionPerformed(evt);
             }
         });
-        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 60, 50));
+
+        Balance.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Balance.setText("0");
+        Panel.add(Balance, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 360, 40));
+
+        CartValue.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        CartValue.setText("0");
+        Panel.add(CartValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 420, 270, 40));
+
+        ScrollPane.setBorder(null);
+
+        Table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        ScrollPane.setViewportView(Table);
+
+        Panel.add(ScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 137, 840, 270));
+
+        ButtonConfirm.setBorderPainted(false);
+        ButtonConfirm.setContentAreaFilled(false);
+        ButtonConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonConfirmActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 470, 300, 50));
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/clientCart.png"))); // NOI18N
+        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,6 +183,41 @@ public class ClientCartScreen extends javax.swing.JFrame {
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void ButtonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonConfirmActionPerformed
+        if (this.clientBalance < this.cartValue) {
+            JOptionPane.showMessageDialog(null, 
+                "<html><body><p style='width: 200px;'>Olá! Detectamos que o total de seus itens selecionados é de " 
+                + String.format("%.2f", this.cartValue) 
+                + " reais. <br><br>No entanto, seu saldo atual é insuficiente para concluir a compra. Você precisa adicionar "
+                + String.format("%.2f", this.cartValue - this.clientBalance)
+                + " reais à sua conta, ou remover alguns itens do seu carrinho. Obrigado por sua compreensão.</p></body></html>", 
+                "Atualização do Carrinho", 
+                JOptionPane.WARNING_MESSAGE);
+        } else {
+            if (this.cartValue > 0) {
+                if (dbAccess.makeOrder(this.ID)) {
+                    JOptionPane.showMessageDialog(null, 
+                    "<html><body><p style='width: 200px;'>Parabéns! Seu pedido foi concluído com sucesso. Agora é só aguardar. Agradecemos pela preferência!</p></body></html>",
+                    "Pedido Concluído", 
+                    JOptionPane.INFORMATION_MESSAGE);
+                    ClientOrderScreen page = new ClientOrderScreen(this.ID);
+                    page.setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, 
+                    "<html><body><p style='width: 200px;'>Oops! Parece que algo deu errado enquanto tentávamos processar o seu pedido. <br><br>Por favor, verifique se as informações inseridas estão corretas e tente novamente. Se o problema persistir, não hesite em contatar nosso suporte ao cliente. Agradecemos pela compreensão!</p></body></html>",
+                    "Erro no Pedido", 
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, 
+                "<html><body><p style='width: 200px;'>Oi! Notamos que seu carrinho está vazio. Por que não aproveita e adiciona alguns itens para finalizar a compra? Estamos à disposição.</p></body></html>",
+                "Carrinho Vazio", 
+                JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ButtonConfirmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,7 +255,13 @@ public class ClientCartScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
+    private javax.swing.JLabel Balance;
     private javax.swing.JButton ButtonBack;
+    private javax.swing.JButton ButtonConfirm;
+    private javax.swing.JLabel CartValue;
     private javax.swing.JPanel Panel;
+    private javax.swing.JScrollPane ScrollPane;
+    private javax.swing.JTable Table;
     // End of variables declaration//GEN-END:variables
 }

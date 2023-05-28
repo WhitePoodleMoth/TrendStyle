@@ -86,6 +86,7 @@ public class communication {
         }
         return 0;
     }
+    
     public ArrayList collectClientData(int id) {
         ArrayList clientData = new ArrayList<>();
         try {
@@ -224,5 +225,65 @@ public class communication {
 
         return cartData;
     }
+    
+    public ArrayList collectCartSummary(int id) {
+        ArrayList cartSummary = new ArrayList<>();
+        try {
+            mysql.conectaBanco();
 
+            String consulta = "SELECT * FROM resumoCarrinho WHERE id_cliente = "+id;
+
+            mysql.executarSQL(consulta);
+
+            ResultSet resultSet = mysql.getResultSet();
+
+            if (resultSet.next()) {
+                try {
+                    cartSummary.add(resultSet.getInt("quantidadeTotal"));
+                    cartSummary.add(resultSet.getDouble("valorTotal"));
+                } catch (Exception ex) {
+                    cartSummary = new ArrayList<>();
+                    cartSummary.add("0");
+                    cartSummary.add("0.0");
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+        return cartSummary;
+    }
+    
+    private boolean updateCart(int id) {
+        mysql.conectaBanco();
+
+        String consulta = "CALL atualizarCarrinho('" + id + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
+    public boolean makeOrder(int id) {
+        if (updateCart(id)) {
+            mysql.conectaBanco();
+        
+            String consulta = "CALL realizarPedido('" + id + "')";
+
+            mysql.executarSQL(consulta);
+
+            boolean success = (mysql.getResultSet() != null);
+
+            mysql.fechaBanco();
+
+            return success;
+        } else {
+            return false;
+        }
+    }
 }
