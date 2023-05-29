@@ -160,7 +160,9 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonOrdersActionPerformed
 
     private void ButtonCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCategoryActionPerformed
-        
+        AdminCategoryScreen page = new AdminCategoryScreen(this.ID);
+        page.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ButtonCategoryActionPerformed
 
     private void ButtonAdministratorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAdministratorActionPerformed

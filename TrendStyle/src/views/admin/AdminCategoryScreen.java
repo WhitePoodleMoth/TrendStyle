@@ -9,12 +9,14 @@ package views.admin;
  * @author Unknown Account
  */
 public class AdminCategoryScreen extends javax.swing.JFrame {
-
+    int ID = 0;
+    
     /**
      * Creates new form AdminCategoryScreen
      */
-    public AdminCategoryScreen() {
+    public AdminCategoryScreen(int _ID) {
         initComponents();
+        this.ID = _ID;
     }
 
     /**
@@ -72,7 +74,7 @@ public class AdminCategoryScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminCategoryScreen().setVisible(true);
+                new AdminCategoryScreen(0).setVisible(true);
             }
         });
     }
