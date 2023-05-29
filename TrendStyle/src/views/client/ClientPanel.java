@@ -69,7 +69,7 @@ public class ClientPanel extends javax.swing.JFrame {
                 ButtonShopActionPerformed(evt);
             }
         });
-        Panel.add(ButtonShop, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 140, 180));
+        Panel.add(ButtonShop, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 140, 180));
 
         ButtonWallet.setBorderPainted(false);
         ButtonWallet.setContentAreaFilled(false);
@@ -81,7 +81,7 @@ public class ClientPanel extends javax.swing.JFrame {
                 ButtonWalletActionPerformed(evt);
             }
         });
-        Panel.add(ButtonWallet, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 140, 160));
+        Panel.add(ButtonWallet, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 140, 160));
 
         ButtonConfiguration.setBorderPainted(false);
         ButtonConfiguration.setContentAreaFilled(false);
@@ -93,7 +93,7 @@ public class ClientPanel extends javax.swing.JFrame {
                 ButtonConfigurationActionPerformed(evt);
             }
         });
-        Panel.add(ButtonConfiguration, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, 130, 170));
+        Panel.add(ButtonConfiguration, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, 130, 170));
 
         ButtonOrder.setBorderPainted(false);
         ButtonOrder.setContentAreaFilled(false);
@@ -105,7 +105,7 @@ public class ClientPanel extends javax.swing.JFrame {
                 ButtonOrderActionPerformed(evt);
             }
         });
-        Panel.add(ButtonOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, 120, 160));
+        Panel.add(ButtonOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 260, 120, 160));
 
         ButtonCart.setBorderPainted(false);
         ButtonCart.setContentAreaFilled(false);
@@ -117,7 +117,7 @@ public class ClientPanel extends javax.swing.JFrame {
                 ButtonCartActionPerformed(evt);
             }
         });
-        Panel.add(ButtonCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 340, 170, 180));
+        Panel.add(ButtonCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 240, 170, 180));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/clientPanel.png"))); // NOI18N
         Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));

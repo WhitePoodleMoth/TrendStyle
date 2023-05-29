@@ -38,7 +38,7 @@ public class AdminPanel extends javax.swing.JFrame {
         ButtonVendors = new javax.swing.JButton();
         ButtonOrders = new javax.swing.JButton();
         ButtonAdministrator = new javax.swing.JButton();
-        ButtonConfiguration = new javax.swing.JButton();
+        ButtonCategory = new javax.swing.JButton();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,7 +68,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 ButtonProductsActionPerformed(evt);
             }
         });
-        Panel.add(ButtonProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 340, 130, 160));
+        Panel.add(ButtonProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 150, 170));
 
         ButtonVendors.setBorderPainted(false);
         ButtonVendors.setContentAreaFilled(false);
@@ -80,7 +80,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 ButtonVendorsActionPerformed(evt);
             }
         });
-        Panel.add(ButtonVendors, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 170, 150));
+        Panel.add(ButtonVendors, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 210, 180));
 
         ButtonOrders.setBorderPainted(false);
         ButtonOrders.setContentAreaFilled(false);
@@ -92,7 +92,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 ButtonOrdersActionPerformed(evt);
             }
         });
-        Panel.add(ButtonOrders, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 110, 130));
+        Panel.add(ButtonOrders, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 220, 130, 160));
 
         ButtonAdministrator.setBorderPainted(false);
         ButtonAdministrator.setContentAreaFilled(false);
@@ -104,19 +104,19 @@ public class AdminPanel extends javax.swing.JFrame {
                 ButtonAdministratorActionPerformed(evt);
             }
         });
-        Panel.add(ButtonAdministrator, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 190, 140));
+        Panel.add(ButtonAdministrator, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 200, 110, 180));
 
-        ButtonConfiguration.setBorderPainted(false);
-        ButtonConfiguration.setContentAreaFilled(false);
-        ButtonConfiguration.setMaximumSize(new java.awt.Dimension(50, 50));
-        ButtonConfiguration.setMinimumSize(new java.awt.Dimension(50, 50));
-        ButtonConfiguration.setPreferredSize(new java.awt.Dimension(50, 50));
-        ButtonConfiguration.addActionListener(new java.awt.event.ActionListener() {
+        ButtonCategory.setBorderPainted(false);
+        ButtonCategory.setContentAreaFilled(false);
+        ButtonCategory.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonCategory.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonCategory.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonConfigurationActionPerformed(evt);
+                ButtonCategoryActionPerformed(evt);
             }
         });
-        Panel.add(ButtonConfiguration, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 360, 200, 130));
+        Panel.add(ButtonCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 160, 170));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/adminPanel.png"))); // NOI18N
         Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -159,9 +159,9 @@ public class AdminPanel extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_ButtonOrdersActionPerformed
 
-    private void ButtonConfigurationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonConfigurationActionPerformed
+    private void ButtonCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCategoryActionPerformed
         
-    }//GEN-LAST:event_ButtonConfigurationActionPerformed
+    }//GEN-LAST:event_ButtonCategoryActionPerformed
 
     private void ButtonAdministratorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAdministratorActionPerformed
         AdminAdministratorScreen page = new AdminAdministratorScreen(this.ID);
@@ -208,7 +208,7 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JLabel Background;
     private javax.swing.JButton ButtonAdministrator;
     private javax.swing.JButton ButtonBack;
-    private javax.swing.JButton ButtonConfiguration;
+    private javax.swing.JButton ButtonCategory;
     private javax.swing.JButton ButtonOrders;
     private javax.swing.JButton ButtonProducts;
     private javax.swing.JButton ButtonVendors;
