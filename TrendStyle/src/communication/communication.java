@@ -87,6 +87,94 @@ public class communication {
         return 0;
     }
     
+    public ArrayList colletClientDetails(int id) {
+        ArrayList<String> userInfo = new ArrayList<>();
+        
+        mysql.conectaBanco();
+
+        String consulta = "SELECT * FROM CLIENTE WHERE id = '" + id + "'";
+        
+        mysql.executarSQL(consulta);
+
+        ResultSet resultSet = mysql.getResultSet();
+
+        try {
+            if (resultSet.next()) {
+                userInfo.add(resultSet.getString("nome"));
+                userInfo.add(resultSet.getString("sobrenome"));
+                userInfo.add(resultSet.getString("CPF"));
+                userInfo.add(resultSet.getString("usuario"));
+                
+                userInfo.add(resultSet.getString("email"));
+                userInfo.add(resultSet.getString("telefone"));
+                userInfo.add(resultSet.getString("CEP"));
+                userInfo.add(resultSet.getString("estado"));
+                userInfo.add(resultSet.getString("cidade"));
+                userInfo.add(resultSet.getString("rua"));
+                userInfo.add(resultSet.getString("numero"));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+        return userInfo;
+    }
+    
+    public boolean updateClientDetails(int id, String email, String celular, String CEP, String estate, String city, String address, String addressNumber) {
+        if (updateCart(id)) {
+            mysql.conectaBanco();
+            
+            String consulta = "CALL atualizarCadastroCliente('" + id + "', '" + email +"', '" + celular +"', '" + CEP +"', '" + address +"', '" + addressNumber +"', '" + city +"', '" + estate +"')";
+
+            mysql.executarSQL(consulta);
+
+            boolean success = (mysql.getResultSet() != null);
+
+            mysql.fechaBanco();
+
+            return success;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean updateClientPassword(int id, String password) {
+        if (updateCart(id)) {
+            mysql.conectaBanco();
+        
+            String consulta = "CALL atualizarSenhaCliente('" + id + "', '" + password +"')";
+
+            mysql.executarSQL(consulta);
+
+            boolean success = (mysql.getResultSet() != null);
+
+            mysql.fechaBanco();
+
+            return success;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean deleteClient(int id) {
+        if (updateCart(id)) {
+            mysql.conectaBanco();
+        
+            String consulta = "CALL apagarCliente('" + id + "')";
+
+            mysql.executarSQL(consulta);
+
+            boolean success = (mysql.getResultSet() != null);
+
+            mysql.fechaBanco();
+
+            return success;
+        } else {
+            return false;
+        }
+    }
+    
     public ArrayList collectClientData(int id) {
         ArrayList clientData = new ArrayList<>();
         try {

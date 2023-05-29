@@ -4,16 +4,23 @@
  */
 package views.client;
 
+import communication.communication;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import utils.SHA256;
+import utils.Validator;
 
 /**
  *
  * @author Unknown Account
  */
 public class ClientConfigurationScreen extends javax.swing.JFrame {
+    communication dbAccess = new communication();
+    Validator validator = new Validator();
+    SHA256 sha256 = new SHA256();
     int ID = 0;
     
     public void fixDesign() {
@@ -49,6 +56,51 @@ public class ClientConfigurationScreen extends javax.swing.JFrame {
         
     }
     
+    public void insertData() {
+        ArrayList clientData = dbAccess.colletClientDetails(this.ID);
+        FieldFirstName.setText((String) clientData.get(0));
+        FieldLastName.setText((String) clientData.get(1));
+        FieldCPF.setText((String) clientData.get(2));
+        FieldUsername.setText((String) clientData.get(3));
+        FieldEmail.setText((String) clientData.get(4));
+        
+        String celular = (String) clientData.get(5);
+        String CEP = (String) clientData.get(6);
+
+        if (celular.length() == 11) {
+            celular = "(" + celular.substring(0, 2) + ") " + celular.substring(2, 7) + "-" + celular.substring(7);
+        }
+
+        if (CEP.length() == 8) {
+            CEP = CEP.substring(0, 5) + "-" + CEP.substring(5);
+        }
+
+        FieldCelular.setValue(celular);
+        FieldCEP.setValue(CEP);
+        
+        FieldEstate.setSelectedItem((String) clientData.get(7));
+        FieldCity.setText((String) clientData.get(8));
+        FieldAddress.setText((String) clientData.get(9));
+        FieldAddressNumber.setText((String) clientData.get(10));
+    }
+    
+    public boolean updateFields() {
+        try {
+            String email         = FieldEmail.getText();
+            String celular       = FieldCelular.getValue().toString().replaceAll("[^0-9]", "");
+            String estate        = FieldEstate.getSelectedItem().toString();
+            String city          = FieldCity.getText();
+            String CEP           = FieldCEP.getValue().toString().replaceAll("\\.", "");
+            String address       = FieldAddress.getText();
+            String addressNumber = FieldAddressNumber.getText();
+            
+            return dbAccess.updateClientDetails(this.ID, email, celular, CEP, estate, city, address, addressNumber);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos obrigatórios.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }
+    
     /**
      * Creates new form ClientConfigurationScreen
      */
@@ -58,6 +110,7 @@ public class ClientConfigurationScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.ID = _ID;
         fixDesign();
+        insertData();
     }
 
     /**
@@ -304,6 +357,10 @@ public class ClientConfigurationScreen extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (!validator.isValidEmail(FieldEmail.getText())) {
+            JOptionPane.showMessageDialog(null, "Por favor, insira um endereço de e-mail válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         int result = JOptionPane.showConfirmDialog(null, 
             "<html><body><p style='width: 200px;'>Você tem certeza que deseja atualizar sua conta?</p></body></html>", 
@@ -311,10 +368,10 @@ public class ClientConfigurationScreen extends javax.swing.JFrame {
             JOptionPane.YES_NO_OPTION);
 
         if(result == JOptionPane.YES_OPTION) {
-            if (true) {
+            if (updateFields()) {
                 JOptionPane.showMessageDialog(null, 
                 "<html><body><p style='width: 200px;'>A sua conta foi atualizada com sucesso!</p></body></html>",
-                "Atualização Concluída", 
+                    "Atualização Concluída", 
                 JOptionPane.INFORMATION_MESSAGE);
 
                 ClientConfigurationScreen page = new ClientConfigurationScreen(this.ID);
@@ -336,7 +393,7 @@ public class ClientConfigurationScreen extends javax.swing.JFrame {
             JOptionPane.YES_NO_OPTION);
 
         if(result == JOptionPane.YES_OPTION) {
-            if (true) {
+            if (dbAccess.deleteClient(this.ID)) {
                 JOptionPane.showMessageDialog(null, 
                 "<html><body><p style='width: 200px;'>A sua conta foi excluída com sucesso. Lamentamos vê-lo partir.</p></body></html>",
                 "Exclusão Concluída", 
@@ -373,11 +430,15 @@ public class ClientConfigurationScreen extends javax.swing.JFrame {
                 "Erro na Atualização", 
                 JOptionPane.ERROR_MESSAGE);
             } else if (password.equals(confirmPassword)) {
-                if (true) {
+                password = sha256.convertToSHA256(password);
+                if (dbAccess.updateClientPassword(this.ID, password)) {
                     JOptionPane.showMessageDialog(null, 
                     "<html><body><p style='width: 200px;'>A sua senha foi atualizada com sucesso!</p></body></html>",
                     "Atualização Concluída", 
                     JOptionPane.INFORMATION_MESSAGE);
+                    ClientHomeScreen page = new ClientHomeScreen();
+                    page.setVisible(true);
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, 
                     "<html><body><p style='width: 200px;'>Oops! Algo deu errado durante a atualização da sua senha. Por favor, tente novamente.</p></body></html>",
