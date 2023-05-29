@@ -12,7 +12,6 @@ graph LR
     admin_panel --> admin_admin[Administradores]
     admin_panel --> admin_vendor[Fornecedores]
     admin_panel --> admin_products[Produtos]
-    admin_panel --> admin_category[Categoria]
     admin_panel --> admin_order[Pedidos]
     
     admin_admin --> admin_admin_manage[Registrar/Visualizar/Atualizar/Deletar]
@@ -21,6 +20,7 @@ graph LR
 
     admin_products --> admin_products_manage[Registrar/Visualizar/Atualizar/Deletar]
     
+    admin_products --> admin_category[Categoria]
     admin_category --> admin_category_manage[Registrar/Visualizar/Atualizar/Deletar]
 
     admin_order --> admin_order_manage[Visualizar/Atualizar]
