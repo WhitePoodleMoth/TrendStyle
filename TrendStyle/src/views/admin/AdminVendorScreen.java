@@ -34,6 +34,7 @@ public class AdminVendorScreen extends javax.swing.JFrame {
 
         Panel = new javax.swing.JPanel();
         ButtonBack = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TrendStyle - Admin Vendor");
@@ -52,7 +53,10 @@ public class AdminVendorScreen extends javax.swing.JFrame {
                 ButtonBackActionPerformed(evt);
             }
         });
-        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 50, 40));
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/adminVendor.png"))); // NOI18N
+        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,6 +118,7 @@ public class AdminVendorScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
     private javax.swing.JButton ButtonBack;
     private javax.swing.JPanel Panel;
     // End of variables declaration//GEN-END:variables

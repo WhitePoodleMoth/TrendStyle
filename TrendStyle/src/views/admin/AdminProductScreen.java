@@ -33,6 +33,7 @@ public class AdminProductScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         Panel = new javax.swing.JPanel();
+        Background = new javax.swing.JLabel();
         ButtonBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -40,6 +41,9 @@ public class AdminProductScreen extends javax.swing.JFrame {
 
         Panel.setBackground(new java.awt.Color(255, 255, 255));
         Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/adminProduct.png"))); // NOI18N
+        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         ButtonBack.setBorderPainted(false);
         ButtonBack.setContentAreaFilled(false);
@@ -51,7 +55,7 @@ public class AdminProductScreen extends javax.swing.JFrame {
                 ButtonBackActionPerformed(evt);
             }
         });
-        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 50));
+        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 50, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,6 +117,7 @@ public class AdminProductScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
     private javax.swing.JButton ButtonBack;
     private javax.swing.JPanel Panel;
     // End of variables declaration//GEN-END:variables
