@@ -374,4 +374,109 @@ public class communication {
             return false;
         }
     }
+    
+    public ArrayList<ArrayList<?>> collectClientOrder(int id) {
+        ArrayList<Integer> idPedidos = new ArrayList<>();
+        ArrayList<Integer> idClientes = new ArrayList<>();
+        ArrayList<String> nomes = new ArrayList<>();
+        ArrayList<String> cpfs = new ArrayList<>();
+        ArrayList<Integer> volumes = new ArrayList<>();
+        ArrayList<Double> valores = new ArrayList<>();
+        ArrayList<String> datas = new ArrayList<>();
+        ArrayList<Boolean> status = new ArrayList<>();
+
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM visualizarPedidosPorCliente WHERE id_cliente = " + id;
+
+            mysql.executarSQL(consulta);
+
+            ResultSet resultSet = mysql.getResultSet();
+
+            while (resultSet.next()) {
+                try {
+                    idPedidos.add(resultSet.getInt("id_pedido"));
+                    idClientes.add(resultSet.getInt("id_cliente"));
+                    nomes.add(resultSet.getString("nome"));
+                    cpfs.add(resultSet.getString("cpf"));
+                    volumes.add(resultSet.getInt("volumes"));
+                    valores.add(resultSet.getDouble("valor"));
+                    datas.add(resultSet.getString("data"));
+                    status.add(resultSet.getBoolean("status"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+
+        ArrayList<ArrayList<?>> cartData = new ArrayList<>();
+        cartData.add(idPedidos);
+        cartData.add(idClientes);
+        cartData.add(nomes);
+        cartData.add(cpfs);
+        cartData.add(volumes);
+        cartData.add(valores);
+        cartData.add(datas);
+        cartData.add(status);
+        
+
+        return cartData;
+    }
+    
+    public ArrayList<ArrayList<?>> collectSingleOrder(int idPedido) {
+        ArrayList<Integer> idPedidos = new ArrayList<>();
+        ArrayList<Integer> idProdutos = new ArrayList<>();
+        ArrayList<String> nomes = new ArrayList<>();
+        ArrayList<String> fabricantes = new ArrayList<>();
+        ArrayList<Double> valoresProduto = new ArrayList<>();
+        ArrayList<Integer> quantidades = new ArrayList<>();
+        ArrayList<Double> valoresTotal = new ArrayList<>();
+        ArrayList<String> imagensProduto = new ArrayList<>();
+
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM visualizarPedido WHERE id_pedido = " + idPedido;
+
+            mysql.executarSQL(consulta);
+
+            ResultSet resultSet = mysql.getResultSet();
+
+            while (resultSet.next()) {
+                try {
+                    idPedidos.add(resultSet.getInt("id_pedido"));
+                    idProdutos.add(resultSet.getInt("id_produto"));
+                    nomes.add(resultSet.getString("nome"));
+                    fabricantes.add(resultSet.getString("fabricante"));
+                    valoresProduto.add(resultSet.getDouble("valorProduto"));
+                    quantidades.add(resultSet.getInt("quantidade"));
+                    valoresTotal.add(resultSet.getDouble("valorTotal"));
+                    imagensProduto.add(resultSet.getString("imagemProduto"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+
+        ArrayList<ArrayList<?>> orderData = new ArrayList<>();
+        orderData.add(idPedidos);
+        orderData.add(idProdutos);
+        orderData.add(nomes);
+        orderData.add(fabricantes);
+        orderData.add(valoresProduto);
+        orderData.add(quantidades);
+        orderData.add(valoresTotal);
+        orderData.add(imagensProduto);
+
+        return orderData;
+    }
 }

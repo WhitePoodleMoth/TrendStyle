@@ -4,17 +4,110 @@
  */
 package views.client;
 
+import communication.communication;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Unknown Account
  */
 public class ClientOrderDetailsScreen extends javax.swing.JFrame {
+    communication dbAccess = new communication();
+    int ID = 0;
+    int ORDER = 0;
+    String STATUS = "pendente";
+    
+    public boolean updateTable() {
+        DefaultTableModel tableModel = new DefaultTableModel(
+                new Object[]{"ID", "Nome", "Fabricante", "Valor Produto", "Quantidade", "Valor Total", "Img"}, 0) {
+            // Making cells non-editable
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
+        ArrayList<ArrayList<?>> order = dbAccess.collectSingleOrder(this.ORDER);
+        ArrayList<Integer> idProdutos = (ArrayList<Integer>) order.get(1);
+        ArrayList<String> nomes = (ArrayList<String>) order.get(2);
+        ArrayList<String> fabricantes = (ArrayList<String>) order.get(3);
+        ArrayList<Double> valoresProduto = (ArrayList<Double>) order.get(4);
+        ArrayList<Integer> quantidades = (ArrayList<Integer>) order.get(5);
+        ArrayList<Double> valoresTotal = (ArrayList<Double>) order.get(6);
+        ArrayList<String> imagensProduto = (ArrayList<String>) order.get(7);
+
+        // Iterating in reverse order
+        for (int i = idProdutos.size() - 1; i >= 0; i--) {
+            tableModel.addRow(new Object[]{idProdutos.get(i), nomes.get(i), fabricantes.get(i), valoresProduto.get(i), quantidades.get(i), valoresTotal.get(i), imagensProduto.get(i)});
+        }
+
+        Table = new JTable(tableModel);
+        Table.getColumnModel().getColumn(6).setMinWidth(0);
+        Table.getColumnModel().getColumn(6).setMaxWidth(0);
+        Table.getColumnModel().getColumn(6).setPreferredWidth(0);
+        ScrollPane.setViewportView(Table);
+
+        Table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    int linhaSelecionada = Table.getSelectedRow();
+                    String img = Table.getValueAt(linhaSelecionada, 6).toString();
+                    String name = Table.getValueAt(linhaSelecionada, 1).toString();
+                    String value = Table.getValueAt(linhaSelecionada, 3).toString();
+                    String amount = Table.getValueAt(linhaSelecionada, 4).toString();
+                    loadImage(img);
+                    Name.setText(name);
+                    Value.setText(value);
+                    Amount.setText(amount);
+                }
+            }
+        });
+
+        return true;
+    }
+    
+    private void loadImage(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            BufferedImage image = ImageIO.read(url);
+
+            int labelWidth = ProductImage.getWidth();
+            int labelHeight = ProductImage.getHeight();
+            Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+            ImageIcon imageIcon = new ImageIcon(scaledImage);
+            ProductImage.setIcon(imageIcon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * Creates new form ClientOrderConfirmationScreen
      */
-    public ClientOrderDetailsScreen() {
+    public ClientOrderDetailsScreen(int _ID, int _ORDER, String _STATUS) {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
+        setLocationRelativeTo(null);
+        this.ID = _ID;
+        this.ORDER = _ORDER;
+        this.STATUS = _STATUS;
+        Order.setText("#" + ORDER);
+        Status.setText(STATUS);
+        updateTable();
     }
 
     /**
@@ -26,21 +119,100 @@ public class ClientOrderDetailsScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Panel = new javax.swing.JPanel();
+        ButtonBack = new javax.swing.JButton();
+        Order = new javax.swing.JLabel();
+        ScrollPane = new javax.swing.JScrollPane();
+        Table = new javax.swing.JTable();
+        ProductImage = new javax.swing.JLabel();
+        Name = new javax.swing.JLabel();
+        Value = new javax.swing.JLabel();
+        Amount = new javax.swing.JLabel();
+        Status = new javax.swing.JLabel();
+        Background = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("TrendStyle - Client Order Details");
+
+        Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ButtonBack.setBorderPainted(false);
+        ButtonBack.setContentAreaFilled(false);
+        ButtonBack.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonBack.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonBack.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonBackActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 60, 50));
+
+        Order.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Panel.add(Order, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, 310, 40));
+
+        ScrollPane.setBorder(null);
+
+        Table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        Table.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                TableComponentAdded(evt);
+            }
+        });
+        ScrollPane.setViewportView(Table);
+
+        Panel.add(ScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 110, 553, 295));
+
+        ProductImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Panel.add(ProductImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(697, 126, 176, 176));
+        Panel.add(Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 313, 145, 20));
+        Panel.add(Value, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 340, 145, 20));
+        Panel.add(Amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 370, 85, 20));
+
+        Status.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Status.setForeground(new java.awt.Color(0, 51, 204));
+        Panel.add(Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 420, 140, 30));
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/clientOrderDetails.png"))); // NOI18N
+        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
+        ClientOrderScreen page = new ClientOrderScreen(this.ID);
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void TableComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_TableComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TableComponentAdded
 
     /**
      * @param args the command line arguments
@@ -73,11 +245,22 @@ public class ClientOrderDetailsScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClientOrderDetailsScreen().setVisible(true);
+                new ClientOrderDetailsScreen(0,0,"pendente").setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Amount;
+    private javax.swing.JLabel Background;
+    private javax.swing.JButton ButtonBack;
+    private javax.swing.JLabel Name;
+    private javax.swing.JLabel Order;
+    private javax.swing.JPanel Panel;
+    private javax.swing.JLabel ProductImage;
+    private javax.swing.JScrollPane ScrollPane;
+    private javax.swing.JLabel Status;
+    private javax.swing.JTable Table;
+    private javax.swing.JLabel Value;
     // End of variables declaration//GEN-END:variables
 }

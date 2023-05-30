@@ -5,6 +5,7 @@
 package trendstyle;
 
 import views.SplashScreen;
+import views.client.ClientOrderScreen;
 
 /**
  *
@@ -16,7 +17,8 @@ public class TrendStyle {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SplashScreen page = new SplashScreen();
+        //SplashScreen page = new SplashScreen();
+        ClientOrderScreen page = new ClientOrderScreen(6);
         page.setVisible(true);
     }
     
