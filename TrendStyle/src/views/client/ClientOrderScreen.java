@@ -4,14 +4,67 @@
  */
 package views.client;
 
+import communication.communication;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Unknown Account
  */
 public class ClientOrderScreen extends javax.swing.JFrame {
+    communication dbAccess = new communication();
     int ID = 0;
+    
+    public boolean updateTable() {
+        DefaultTableModel tableModel = new DefaultTableModel(
+                new Object[]{"ID", "Nome", "CPF", "Volumes", "Valor", "Data", "Status"}, 0) {
+            // Making cells non-editable
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        ArrayList<ArrayList<?>> orders = dbAccess.collectClientOrder(this.ID);
+        ArrayList<Integer> idPedidos = (ArrayList<Integer>) orders.get(0);
+        ArrayList<String> nomes = (ArrayList<String>) orders.get(2);
+        ArrayList<String> cpfs = (ArrayList<String>) orders.get(3);
+        ArrayList<Integer> volumes = (ArrayList<Integer>) orders.get(4);
+        ArrayList<Double> valores = (ArrayList<Double>) orders.get(5);
+        ArrayList<String> datas = (ArrayList<String>) orders.get(6);
+        ArrayList<Boolean> status = (ArrayList<Boolean>) orders.get(7);
+
+        // Iterating in reverse order
+        for (int i = idPedidos.size() - 1; i >= 0; i--) {
+            String statusPedido = status.get(i) ? "Entregue" : "Pendente";
+
+            tableModel.addRow(new Object[]{idPedidos.get(i), nomes.get(i), cpfs.get(i), volumes.get(i), valores.get(i), datas.get(i), statusPedido});
+        }
+
+        Table = new JTable(tableModel);
+        ScrollPane.setViewportView(Table);
+
+        Table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    int linhaSelecionada = Table.getSelectedRow();
+                    int order = Integer.parseInt(Table.getValueAt(linhaSelecionada, 0).toString());
+                    String status = Table.getValueAt(linhaSelecionada, 6).toString();
+                    ClientOrderDetailsScreen page = new ClientOrderDetailsScreen(ID, order, status);
+                    page.setVisible(true);
+                    dispose();
+                }
+            }
+        });
+
+        return true;
+    }
     
     /**
      * Creates new form ClientOrderScreen
@@ -21,6 +74,7 @@ public class ClientOrderScreen extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
         this.ID = _ID;
+        updateTable();
     }
 
     /**
@@ -34,6 +88,8 @@ public class ClientOrderScreen extends javax.swing.JFrame {
 
         Panel = new javax.swing.JPanel();
         ButtonBack = new javax.swing.JButton();
+        ScrollPane = new javax.swing.JScrollPane();
+        Table = new javax.swing.JTable();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,7 +108,29 @@ public class ClientOrderScreen extends javax.swing.JFrame {
                 ButtonBackActionPerformed(evt);
             }
         });
-        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 60, 40));
+        Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 60, 50));
+
+        ScrollPane.setBorder(null);
+
+        Table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        Table.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                TableComponentAdded(evt);
+            }
+        });
+        ScrollPane.setViewportView(Table);
+
+        Panel.add(ScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 118, 837, 337));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/clientOrder.png"))); // NOI18N
         Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -80,6 +158,10 @@ public class ClientOrderScreen extends javax.swing.JFrame {
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void TableComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_TableComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TableComponentAdded
 
     /**
      * @param args the command line arguments
@@ -120,5 +202,7 @@ public class ClientOrderScreen extends javax.swing.JFrame {
     private javax.swing.JLabel Background;
     private javax.swing.JButton ButtonBack;
     private javax.swing.JPanel Panel;
+    private javax.swing.JScrollPane ScrollPane;
+    private javax.swing.JTable Table;
     // End of variables declaration//GEN-END:variables
 }
