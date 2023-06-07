@@ -229,6 +229,16 @@ BEGIN
     WHERE id_carrinho = (SELECT ID FROM CARRINHO WHERE id_cliente = p_cliente_id) AND id_produto = p_produto_id;
 END //
 
+CREATE PROCEDURE apagarCarrinho(IN p_cliente_id INTEGER)
+BEGIN
+    -- Deletar produtos do carrinho
+    DELETE FROM CARRINHO_PRODUTO
+    WHERE id_carrinho = (SELECT ID FROM CARRINHO WHERE id_cliente = p_cliente_id);
+
+    -- Deletar o carrinho
+    DELETE FROM CARRINHO WHERE id_cliente = p_cliente_id;
+END //
+
 CREATE PROCEDURE realizarPedido(IN p_cliente_id INTEGER)
 BEGIN
     DECLARE v_carrinho_id INTEGER;
