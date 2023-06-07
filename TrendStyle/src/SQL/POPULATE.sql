@@ -72,3 +72,7 @@ CALL adicionarProdutoNoCarrinho(1, 2, 1);
 CALL adicionarProdutoNoCarrinho(1, 3, 1);
 CALL apagarCarrinho(1);
 CALL adicionarProdutoNoCarrinho(1, 1, 2);
+CALL adicionarProdutoNoCarrinho(1, 2, 1);
+CALL adicionarProdutoNoCarrinho(1, 3, 1);
+CALL adicionarProdutoNoCarrinho(1, 4, 1);
+CALL adicionarProdutoNoCarrinho(1, 5, 1);
