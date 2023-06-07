@@ -256,6 +256,58 @@ public class communication {
         return success;
     }
     
+    public ArrayList<ArrayList<?>> collectShoppingProducts() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        ArrayList<String> nomes = new ArrayList<>();
+        ArrayList<String> descricoes = new ArrayList<>();
+        ArrayList<String> imagens = new ArrayList<>();
+        ArrayList<String> fornecedores  = new ArrayList<>();
+        ArrayList<String> categorias = new ArrayList<>();
+        ArrayList<Integer> estoques = new ArrayList<>();
+        ArrayList<Double> valores = new ArrayList<>();
+        
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM produtosLoja";
+
+            mysql.executarSQL(consulta);
+
+            ResultSet resultSet = mysql.getResultSet();
+
+            while (resultSet.next()) {
+                try {
+                    ids.add(resultSet.getInt("id"));
+                    nomes.add(resultSet.getString("nome"));
+                    descricoes.add(resultSet.getString("descricao"));
+                    imagens.add(resultSet.getString("imagem"));
+                    fornecedores.add(resultSet.getString("fornecedor"));
+                    categorias.add(resultSet.getString("categoria"));
+                    estoques.add(resultSet.getInt("estoque"));
+                    valores.add(resultSet.getDouble("valor"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+        
+        ArrayList<ArrayList<?>> shopData = new ArrayList<>();
+        shopData.add(ids);
+        shopData.add(nomes);
+        shopData.add(descricoes);
+        shopData.add(imagens);
+        shopData.add(fornecedores);
+        shopData.add(categorias);
+        shopData.add(estoques);
+        shopData.add(valores);
+
+        return shopData;
+    }
+    
     public ArrayList<ArrayList<?>> collectShoppingCartItems(int id) {
         ArrayList<Integer> idClientes = new ArrayList<>();
         ArrayList<Integer> idProdutos = new ArrayList<>();
@@ -332,6 +384,24 @@ public class communication {
             mysql.fechaBanco();
         }
         return cartSummary;
+    }
+    
+    public boolean addCartProduct(int id, int id_product, int amount) {
+        mysql.conectaBanco();
+
+        if (amount<=0) {
+            return false;
+        }
+        
+        String consulta = "CALL adicionarProdutoNoCarrinho('" + id + "', '" + id_product + "', '" + amount + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
     }
     
     public boolean updateCartProduct(int id, int id_product, int new_amount) {

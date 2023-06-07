@@ -76,3 +76,5 @@ CALL adicionarProdutoNoCarrinho(1, 2, 1);
 CALL adicionarProdutoNoCarrinho(1, 3, 1);
 CALL adicionarProdutoNoCarrinho(1, 4, 1);
 CALL adicionarProdutoNoCarrinho(1, 5, 1);
+
+SELECT * FROM produtosLoja;

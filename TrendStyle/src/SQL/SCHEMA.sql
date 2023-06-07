@@ -553,6 +553,26 @@ SELECT c.ID AS id_cliente, d.ID AS ID, CONCAT(c.nome, ' ', c.sobrenome) AS nome,
 FROM CLIENTE c
 INNER JOIN DEPOSITO d ON c.ID = d.id_cliente;
 
+CREATE VIEW produtosLoja AS
+SELECT 
+    P.ID as id,
+    P.nome,
+    P.descricao,
+    P.imagem_url as imagem,
+    F.nomeFantasia as fornecedor,
+    PT.nome as categoria,
+    P.estoque,
+    P.valor
+FROM 
+    PRODUTO P
+JOIN 
+    FORNECEDOR F ON P.id_fornecedor = F.ID
+JOIN 
+    PRODUTO_TIPO PT ON P.id_produto_tipo = PT.ID
+WHERE 
+    P.estoque > 0;
+
+
 CREATE VIEW visualizarCarrinho AS
 SELECT
     PRODUTO.ID AS id_produto,
