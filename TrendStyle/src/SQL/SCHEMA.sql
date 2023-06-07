@@ -23,9 +23,7 @@ END //
 CREATE PROCEDURE atualizarCliente(
     IN p_id INTEGER,
     IN p_usuario VARCHAR(255),
-    IN p_senha VARCHAR(255),
-    IN p_CPF VARCHAR(255),
-    IN p_saldo FLOAT,
+    IN p_cpf VARCHAR(255),
     IN p_nome VARCHAR(255),
     IN p_sobrenome VARCHAR(255),
     IN p_email VARCHAR(255),
@@ -39,9 +37,7 @@ CREATE PROCEDURE atualizarCliente(
 BEGIN
     UPDATE CLIENTE
     SET usuario = p_usuario,
-        senha = p_senha,
-        CPF = p_CPF,
-        saldo = p_saldo,
+        CPF = p_cpf,
         nome = p_nome,
         sobrenome = p_sobrenome,
         email = p_email,
@@ -325,7 +321,6 @@ END //
 CREATE PROCEDURE atualizarAdmin(
     IN p_id INTEGER,
     IN p_usuario VARCHAR(255),
-    IN p_senha VARCHAR(255),
     IN p_CPF VARCHAR(255),
     IN p_nome VARCHAR(255),
     IN p_sobrenome VARCHAR(255),
@@ -335,12 +330,21 @@ CREATE PROCEDURE atualizarAdmin(
 BEGIN
     UPDATE ADMINISTRADOR
     SET usuario = p_usuario,
-        senha = p_senha,
         CPF = p_CPF,
         nome = p_nome,
         sobrenome = p_sobrenome,
         email = p_email,
         telefone = p_telefone
+    WHERE ID = p_id;
+END //
+
+CREATE PROCEDURE atualizarSenhaAdmin(
+    IN p_id INTEGER,
+    IN p_senha VARCHAR(255)
+)
+BEGIN
+    UPDATE ADMINISTRADOR
+    SET senha = p_senha
     WHERE ID = p_id;
 END //
 
@@ -408,6 +412,36 @@ BEGIN
     -- Remover o fornecedor
     DELETE FROM FORNECEDOR WHERE ID = p_id;
 END //
+
+CREATE PROCEDURE registrarTipoProduto(
+    IN p_nome VARCHAR(255),
+    IN p_descricao VARCHAR(255)
+)
+BEGIN
+    INSERT INTO PRODUTO_TIPO (nome, descricao)
+    VALUES (p_nome, p_descricao);
+END //
+
+CREATE PROCEDURE alterarTipoProduto(
+    IN p_id INT,
+    IN p_nome VARCHAR(255),
+    IN p_descricao VARCHAR(255)
+)
+BEGIN
+    UPDATE PRODUTO_TIPO
+    SET nome = p_nome,
+        descricao = p_descricao
+    WHERE ID = p_id;
+END //
+
+CREATE PROCEDURE excluirTipoProduto(
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM PRODUTO_TIPO
+    WHERE ID = p_id;
+END //
+
 
 CREATE PROCEDURE registrarProduto(
     IN p_nome VARCHAR(255),
