@@ -275,6 +275,7 @@ public class communication {
         ArrayList<Double> valores = new ArrayList<>();
         ArrayList<Integer> quantidades = new ArrayList<>();
         ArrayList<Double> totais = new ArrayList<>();
+        ArrayList<String> imagens = new ArrayList<>();
 
         try {
             mysql.conectaBanco();
@@ -293,6 +294,7 @@ public class communication {
                     valores.add(resultSet.getDouble("valor"));
                     quantidades.add(resultSet.getInt("quantidade"));
                     totais.add(resultSet.getDouble("total"));
+                    imagens.add(resultSet.getString("imagem"));
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -310,6 +312,7 @@ public class communication {
         cartData.add(valores);
         cartData.add(quantidades);
         cartData.add(totais);
+        cartData.add(imagens);
 
         return cartData;
     }
@@ -341,6 +344,39 @@ public class communication {
             mysql.fechaBanco();
         }
         return cartSummary;
+    }
+    
+    public boolean updateCartProduct(int id, int id_product, int new_amount) {
+        mysql.conectaBanco();
+        
+        String consulta = "";
+        if (new_amount>0) {
+            consulta = "CALL alterarQuantidadeProdutoNoCarrinho('" + id + "', '" + id_product + "', '" + new_amount + "')";
+        } else {
+            consulta = "CALL removerProdutoDoCarrinho('" + id + "', '" + id_product + "')";
+        }
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
+    public boolean deleteCart(int id) {
+        mysql.conectaBanco();
+
+        String consulta = "CALL apagarCarrinho('" + id + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
     }
     
     private boolean updateCart(int id) {

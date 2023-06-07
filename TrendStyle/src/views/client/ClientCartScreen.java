@@ -5,9 +5,18 @@
 package views.client;
 
 import communication.communication;
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -21,10 +30,11 @@ public class ClientCartScreen extends javax.swing.JFrame {
     int ID = 0;
     double clientBalance = 0;
     double cartValue = 0;
+    int productID = 0;
     
     public boolean updateTable() {
         DefaultTableModel tableModel = new DefaultTableModel(
-                new Object[]{"ID", "Nome", "Valor", "Quantidade", "Total"}, 0
+                new Object[]{"ID", "Nome", "Valor", "Quantidade", "Total", "Imagem"}, 0
         ) {
             // Making cells non-editable
             @Override
@@ -40,6 +50,7 @@ public class ClientCartScreen extends javax.swing.JFrame {
         ArrayList<Double> valores = (ArrayList<Double>) cartItems.get(3);
         ArrayList<Integer> quantidades = (ArrayList<Integer>) cartItems.get(4);
         ArrayList<Double> totais = (ArrayList<Double>) cartItems.get(5);
+        ArrayList<String> imagens = (ArrayList<String>) cartItems.get(6);
 
         // Iterating in reverse order
         for (int i = idProdutos.size() - 1; i >= 0; i--) {
@@ -48,14 +59,58 @@ public class ClientCartScreen extends javax.swing.JFrame {
             double valor = valores.get(i);
             int quantidade = quantidades.get(i);
             double total = totais.get(i);
-            total = Double.valueOf(new DecimalFormat("#.00").format(total));
+            total = Double.parseDouble(new DecimalFormat("#.00").format(total));
+            String imagem = imagens.get(i);
 
-            tableModel.addRow(new Object[]{idProduto, nome, valor, quantidade, total});
+            tableModel.addRow(new Object[]{idProduto, nome, valor, quantidade, total, imagem});
         }
 
         Table = new JTable(tableModel);
+        Table.getColumnModel().getColumn(5).setMinWidth(0);
+        Table.getColumnModel().getColumn(5).setMaxWidth(0);
+        Table.getColumnModel().getColumn(5).setPreferredWidth(0);
         ScrollPane.setViewportView(Table);
+        
+        Table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    int linhaSelecionada = Table.getSelectedRow();
+                    productID = (int) Table.getValueAt(linhaSelecionada,0);
+                    String img = Table.getValueAt(linhaSelecionada, 5).toString();
+                    String name = Table.getValueAt(linhaSelecionada, 1).toString();
+                    String value = Table.getValueAt(linhaSelecionada, 2).toString();
+                    String amount = Table.getValueAt(linhaSelecionada, 3).toString();
+                    loadImage(img);
+                    Name.setText(name);
+                    Value.setText(value);
+                    Amount.setText(amount);
+                }
+            }
+        });
+        
         return true;
+    }
+    
+    public void fixDesign() {
+        Amount.setOpaque(false);
+        Amount.setBackground(new Color(0, 0, 0, 0));
+    }
+    
+    private void loadImage(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            BufferedImage image = ImageIO.read(url);
+
+            int labelWidth = ProductImage.getWidth();
+            int labelHeight = ProductImage.getHeight();
+            Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+            ImageIcon imageIcon = new ImageIcon(scaledImage);
+            ProductImage.setIcon(imageIcon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     public void updatePage() {
@@ -88,6 +143,7 @@ public class ClientCartScreen extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
         this.ID = _ID;
+        fixDesign();
         updatePage();
     }
 
@@ -106,7 +162,14 @@ public class ClientCartScreen extends javax.swing.JFrame {
         CartValue = new javax.swing.JLabel();
         ScrollPane = new javax.swing.JScrollPane();
         Table = new javax.swing.JTable();
+        ButtonDelete = new javax.swing.JButton();
+        ButtonUpdate = new javax.swing.JButton();
         ButtonConfirm = new javax.swing.JButton();
+        ButtonReset = new javax.swing.JButton();
+        ProductImage = new javax.swing.JLabel();
+        Name = new javax.swing.JLabel();
+        Value = new javax.swing.JLabel();
+        Amount = new javax.swing.JTextField();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -150,7 +213,25 @@ public class ClientCartScreen extends javax.swing.JFrame {
         ));
         ScrollPane.setViewportView(Table);
 
-        Panel.add(ScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 137, 840, 270));
+        Panel.add(ScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 137, 560, 270));
+
+        ButtonDelete.setBorderPainted(false);
+        ButtonDelete.setContentAreaFilled(false);
+        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonDeleteActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(685, 370, 98, 35));
+
+        ButtonUpdate.setBorderPainted(false);
+        ButtonUpdate.setContentAreaFilled(false);
+        ButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonUpdateActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(787, 370, 95, 35));
 
         ButtonConfirm.setBorderPainted(false);
         ButtonConfirm.setContentAreaFilled(false);
@@ -160,6 +241,26 @@ public class ClientCartScreen extends javax.swing.JFrame {
             }
         });
         Panel.add(ButtonConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 470, 300, 50));
+
+        ButtonReset.setBorderPainted(false);
+        ButtonReset.setContentAreaFilled(false);
+        ButtonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonResetActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, 290, 60));
+        Panel.add(ProductImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 100, 170, 170));
+        Panel.add(Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(744, 283, 150, 21));
+        Panel.add(Value, new org.netbeans.lib.awtextra.AbsoluteConstraints(749, 311, 147, 20));
+
+        Amount.setBorder(null);
+        Amount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AmountActionPerformed(evt);
+            }
+        });
+        Panel.add(Amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(809, 339, 87, 20));
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/clientCart.png"))); // NOI18N
         Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -219,6 +320,62 @@ public class ClientCartScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ButtonConfirmActionPerformed
 
+    private void ButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonResetActionPerformed
+        int result = JOptionPane.showConfirmDialog(null,
+                "<html><body><p style='width: 200px;'>Você tem certeza que deseja excluir o carrinho? Todos os produtos serão removidos, zerando completamente.</p></body></html>",
+                "Confirmação de Exclusão do Carrinho",
+                JOptionPane.YES_NO_OPTION);
+
+        if (result == JOptionPane.YES_OPTION) {
+            // Código para remover todos os produtos do carrinho e zerar completamente
+            if (dbAccess.deleteCart(this.ID)) {
+                JOptionPane.showMessageDialog(null,
+                    "<html><body><p style='width: 200px;'>O carrinho foi excluído com sucesso. Todos os produtos foram removidos.</p></body></html>",
+                    "Exclusão Concluída",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+                ClientCartScreen page = new ClientCartScreen(this.ID);
+                page.setVisible(true);
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_ButtonResetActionPerformed
+
+    private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed
+        try {
+            int amount = Integer.parseInt(Amount.getText());
+
+            if (dbAccess.updateCartProduct(this.ID, this.productID, amount)) {
+                ClientCartScreen page = new ClientCartScreen(this.ID);
+                page.setVisible(true);
+                dispose();
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Quantidade inválida. Por favor, digite um número válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ButtonUpdateActionPerformed
+
+    private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
+        if (dbAccess.updateCartProduct(this.ID, this.productID, 0)) {
+            JOptionPane.showMessageDialog(null,
+                    "<html><body><p style='width: 200px;'>O produto foi excluído do carrinho com sucesso.</p></body></html>",
+                    "Exclusão Concluída",
+                    JOptionPane.INFORMATION_MESSAGE);
+            ClientCartScreen page = new ClientCartScreen(this.ID);
+            page.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "<html><body><p style='width: 200px;'>Oops! Algo deu errado durante a exclusão do produto do carrinho. Por favor, tente novamente.</p></body></html>",
+                    "Erro na Exclusão",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ButtonDeleteActionPerformed
+
+    private void AmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AmountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AmountActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -255,13 +412,20 @@ public class ClientCartScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Amount;
     private javax.swing.JLabel Background;
     private javax.swing.JLabel Balance;
     private javax.swing.JButton ButtonBack;
     private javax.swing.JButton ButtonConfirm;
+    private javax.swing.JButton ButtonDelete;
+    private javax.swing.JButton ButtonReset;
+    private javax.swing.JButton ButtonUpdate;
     private javax.swing.JLabel CartValue;
+    private javax.swing.JLabel Name;
     private javax.swing.JPanel Panel;
+    private javax.swing.JLabel ProductImage;
     private javax.swing.JScrollPane ScrollPane;
     private javax.swing.JTable Table;
+    private javax.swing.JLabel Value;
     // End of variables declaration//GEN-END:variables
 }

@@ -553,7 +553,6 @@ SELECT c.ID AS id_cliente, d.ID AS ID, CONCAT(c.nome, ' ', c.sobrenome) AS nome,
 FROM CLIENTE c
 INNER JOIN DEPOSITO d ON c.ID = d.id_cliente;
 
-
 CREATE VIEW visualizarCarrinho AS
 SELECT
     PRODUTO.ID AS id_produto,
@@ -561,7 +560,8 @@ SELECT
     PRODUTO.valor AS valor,
     CARRINHO_PRODUTO.quantidade,
     (PRODUTO.valor * CARRINHO_PRODUTO.quantidade) AS total,
-    CARRINHO.id_cliente
+    CARRINHO.id_cliente,
+    PRODUTO.imagem_url AS imagem
 FROM
     CARRINHO_PRODUTO
     INNER JOIN PRODUTO ON CARRINHO_PRODUTO.id_produto = PRODUTO.ID
