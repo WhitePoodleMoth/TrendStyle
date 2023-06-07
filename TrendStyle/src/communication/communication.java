@@ -122,57 +122,45 @@ public class communication {
     }
     
     public boolean updateClientDetails(int id, String email, String celular, String CEP, String estate, String city, String address, String addressNumber) {
-        if (updateCart(id)) {
-            mysql.conectaBanco();
+        mysql.conectaBanco();
             
-            String consulta = "CALL atualizarCadastroCliente('" + id + "', '" + email +"', '" + celular +"', '" + CEP +"', '" + address +"', '" + addressNumber +"', '" + city +"', '" + estate +"')";
+        String consulta = "CALL atualizarCadastroCliente('" + id + "', '" + email +"', '" + celular +"', '" + CEP +"', '" + address +"', '" + addressNumber +"', '" + city +"', '" + estate +"')";
 
-            mysql.executarSQL(consulta);
+        mysql.executarSQL(consulta);
 
-            boolean success = (mysql.getResultSet() != null);
+        boolean success = (mysql.getResultSet() != null);
 
-            mysql.fechaBanco();
+        mysql.fechaBanco();
 
-            return success;
-        } else {
-            return false;
-        }
+        return success;
     }
     
     public boolean updateClientPassword(int id, String password) {
-        if (updateCart(id)) {
-            mysql.conectaBanco();
+        mysql.conectaBanco();
         
-            String consulta = "CALL atualizarSenhaCliente('" + id + "', '" + password +"')";
+        String consulta = "CALL atualizarSenhaCliente('" + id + "', '" + password +"')";
 
-            mysql.executarSQL(consulta);
+        mysql.executarSQL(consulta);
 
-            boolean success = (mysql.getResultSet() != null);
+        boolean success = (mysql.getResultSet() != null);
 
-            mysql.fechaBanco();
+        mysql.fechaBanco();
 
-            return success;
-        } else {
-            return false;
-        }
+        return success;
     }
     
     public boolean deleteClient(int id) {
-        if (updateCart(id)) {
-            mysql.conectaBanco();
+        mysql.conectaBanco();
         
-            String consulta = "CALL apagarCliente('" + id + "')";
+        String consulta = "CALL apagarCliente('" + id + "')";
 
-            mysql.executarSQL(consulta);
+        mysql.executarSQL(consulta);
 
-            boolean success = (mysql.getResultSet() != null);
+        boolean success = (mysql.getResultSet() != null);
 
-            mysql.fechaBanco();
+        mysql.fechaBanco();
 
-            return success;
-        } else {
-            return false;
-        }
+        return success;
     }
     
     public ArrayList collectClientData(int id) {
