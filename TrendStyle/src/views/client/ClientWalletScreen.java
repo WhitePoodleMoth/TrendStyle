@@ -189,7 +189,7 @@ public class ClientWalletScreen extends javax.swing.JFrame {
     private void ButtonDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDepositActionPerformed
         try {
             double amount = Double.parseDouble(FieldAmount.getText());
-            if (amount>0 && amount<10000) {
+            if (amount>0 && amount<=100000) {
                 if (dbAccess.makeDeposit(this.ID, amount)) {
                     JOptionPane.showMessageDialog(null, "Depósito de " + amount + " reais realizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     ClientWalletScreen page = new ClientWalletScreen(this.ID);
