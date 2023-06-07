@@ -342,6 +342,10 @@ public class ClientCartScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonResetActionPerformed
 
     private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed
+        if (this.productID==0) {
+            JOptionPane.showMessageDialog(null, "Selecione um produto antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         try {
             int amount = Integer.parseInt(Amount.getText());
 
@@ -356,6 +360,10 @@ public class ClientCartScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonUpdateActionPerformed
 
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
+        if (this.productID==0) {
+            JOptionPane.showMessageDialog(null, "Selecione um produto antes de prosseguir.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if (dbAccess.updateCartProduct(this.ID, this.productID, 0)) {
             JOptionPane.showMessageDialog(null,
                     "<html><body><p style='width: 200px;'>O produto foi excluído do carrinho com sucesso.</p></body></html>",
