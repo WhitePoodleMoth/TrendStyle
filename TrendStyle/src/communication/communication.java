@@ -50,6 +50,142 @@ public class communication {
         return 0;
     }
     
+    public boolean registerVendor(String cnpj, String nomeFantasia, String razaoSocial, String email, String telefone, String cep, String rua, String numero, String cidade, String estado) {
+        mysql.conectaBanco();
+
+        String consulta = "CALL registrarFornecedor('" + cnpj + "', '" + nomeFantasia + "', '" + razaoSocial + "', '" + email + "', '" + telefone + "', '" + cep + "', '" + rua + "', '" + numero + "', '" + cidade + "', '" + estado + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+
+    public boolean updateVendor(int id, String cnpj, String nomeFantasia, String razaoSocial, String email, String telefone, String cep, String rua, String numero, String cidade, String estado) {
+        mysql.conectaBanco();
+
+        String consulta = "CALL atualizarFornecedor(" + id + ", '" + cnpj + "', '" + nomeFantasia + "', '" + razaoSocial + "', '" + email + "', '" + telefone + "', '" + cep + "', '" + rua + "', '" + numero + "', '" + cidade + "', '" + estado + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
+    public boolean deleteVendor(int id) {
+        mysql.conectaBanco();
+        
+        String consulta = "CALL apagarFornecedor('" + id + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
+    public ArrayList<ArrayList<?>> collectVendors() {
+        ArrayList<String> ids = new ArrayList<>();
+        ArrayList<String> cnpjs = new ArrayList<>();
+        ArrayList<String> razoes = new ArrayList<>();
+        ArrayList<String> fantasias = new ArrayList<>();
+        ArrayList<String> emails = new ArrayList<>();
+        ArrayList<String> telefones = new ArrayList<>();
+        ArrayList<String> ceps = new ArrayList<>();
+        ArrayList<String> ruas = new ArrayList<>();
+        ArrayList<String> numeros = new ArrayList<>();
+        ArrayList<String> cidades = new ArrayList<>();
+        ArrayList<String> estados = new ArrayList<>();
+
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM FORNECEDOR";
+
+            mysql.executarSQL(consulta);
+
+            ResultSet resultSet = mysql.getResultSet();
+
+            while (resultSet.next()) {
+                try {
+                    ids.add(resultSet.getString("id"));
+                    cnpjs.add(resultSet.getString("CNPJ"));
+                    razoes.add(resultSet.getString("razaoSocial"));
+                    fantasias.add(resultSet.getString("nomeFantasia"));
+                    emails.add(resultSet.getString("email"));
+                    telefones.add(resultSet.getString("telefone"));
+                    ceps.add(resultSet.getString("CEP"));
+                    ruas.add(resultSet.getString("rua"));
+                    numeros.add(resultSet.getString("numero"));
+                    cidades.add(resultSet.getString("cidade"));
+                    estados.add(resultSet.getString("estado"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+
+        ArrayList<ArrayList<?>> vendorsData = new ArrayList<>();
+        vendorsData.add(ids);
+        vendorsData.add(cnpjs);
+        vendorsData.add(razoes);
+        vendorsData.add(fantasias);
+        vendorsData.add(emails);
+        vendorsData.add(telefones);
+        vendorsData.add(ceps);
+        vendorsData.add(ruas);
+        vendorsData.add(numeros);
+        vendorsData.add(cidades);
+        vendorsData.add(estados);
+
+        return vendorsData;
+    }
+    
+    public ArrayList collectVendorData(int id) {
+        ArrayList vendorData = new ArrayList<>();
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM FORNECEDOR WHERE ID = "+id;
+            
+            mysql.executarSQL(consulta);
+            
+            ResultSet resultSet = mysql.getResultSet();
+
+            if (resultSet.next()) {
+                try {
+                    vendorData.add(resultSet.getString("nomeFantasia"));
+                    vendorData.add(resultSet.getString("razaoSocial"));
+                    vendorData.add(resultSet.getString("CNPJ"));
+                    vendorData.add(resultSet.getString("email"));
+                    vendorData.add(resultSet.getString("telefone"));
+                    vendorData.add(resultSet.getString("estado"));
+                    vendorData.add(resultSet.getString("CEP"));
+                    vendorData.add(resultSet.getString("cidade"));
+                    vendorData.add(resultSet.getString("rua"));
+                    vendorData.add(resultSet.getString("numero"));
+                } catch (Exception ex) {}
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+        return vendorData;
+    }
+    
     public boolean registerClient(String username, String password, String cpf, String nome, String sobrenome, String email, String telefone, String cep, String rua, String numero, String cidade, String estado) {
         mysql.conectaBanco();
 
