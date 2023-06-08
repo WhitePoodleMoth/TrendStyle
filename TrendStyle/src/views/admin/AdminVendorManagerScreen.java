@@ -341,9 +341,9 @@ public class AdminVendorManagerScreen extends javax.swing.JFrame {
         if (!areFieldsEmpty()) {
             Map<String, String> data = extractFields();
             if (this.vendorID>0) {
-                updateVendor(data.get("cnpj"), data.get("nomeFantasia"), data.get("razaoSocial"), data.get("email"), data.get("celular"), data.get("cep"), data.get("rua"), data.get("numero"), data.get("cidade"), data.get("estado"));
+                updateVendor(data.get("cnpj"), data.get("razaoSocial"), data.get("nomeFantasia"), data.get("email"), data.get("celular"), data.get("cep"), data.get("rua"), data.get("numero"), data.get("cidade"), data.get("estado"));
             } else {
-                registerNewVendor(data.get("cnpj"), data.get("nomeFantasia"), data.get("razaoSocial"), data.get("email"), data.get("celular"), data.get("cep"), data.get("rua"), data.get("numero"), data.get("cidade"), data.get("estado"));
+                registerNewVendor(data.get("cnpj"), data.get("razaoSocial"), data.get("nomeFantasia"), data.get("email"), data.get("celular"), data.get("cep"), data.get("rua"), data.get("numero"), data.get("cidade"), data.get("estado"));
             }
         }
     }//GEN-LAST:event_ButtonUpdateActionPerformed
