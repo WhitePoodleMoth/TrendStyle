@@ -6,7 +6,7 @@ A TrendStyle é uma empresa fictícia que tem como principal objetivo possibilit
 
 ## 👥 Integrantes do Grupo
 
-- 223989 - Cauã Paes Breda
+- 223989 - Caua PB
 
 ## 💻 Tecnologias Utilizadas
 
