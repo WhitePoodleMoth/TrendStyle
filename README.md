@@ -10,10 +10,9 @@ A TrendStyle é uma empresa fictícia que tem como principal objetivo possibilit
 
 ## 💻 Tecnologias Utilizadas
 
-- Java
-- NetBeans
-- Mermaid.js
-- MySQL
+- Java & NetBeans
+- Mermaid.js & dbdiagram.io
+- MySQL & MySQL Workbench
 - Canva
 
 ## 📜 Licença
