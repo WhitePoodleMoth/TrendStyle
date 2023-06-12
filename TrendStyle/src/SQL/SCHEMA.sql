@@ -630,3 +630,52 @@ JOIN PRODUTO pr ON pp.id_produto = pr.ID
 JOIN FORNECEDOR f ON pr.id_fornecedor = f.ID
 JOIN PRODUTO_TIPO pt ON pr.id_produto_tipo = pt.ID
 ORDER BY p.ID, pr.ID;
+
+CREATE VIEW produtosAdmin AS
+SELECT
+    P.ID AS id,
+    P.nome AS nome,
+    P.descricao AS descricao,
+    P.imagem_url AS imagem,
+    P.valor AS valor,
+    P.estoque AS estoque,
+    P.creation AS creation,
+    PT.nome AS categoria,
+    F.razaoSocial AS fornecedor,
+    PT.ID AS categoriaID,
+    F.ID AS fornecedorID
+FROM
+    PRODUTO P
+    INNER JOIN PRODUTO_TIPO PT ON P.id_produto_tipo = PT.ID
+    INNER JOIN FORNECEDOR F ON P.id_fornecedor = F.ID;
+
+CREATE VIEW pedidosAdmin AS
+SELECT
+    P.ID AS id,
+    CONCAT(C.nome, ' ', C.sobrenome) AS nome,
+    C.CPF AS CPF,
+    CONCAT(C.rua, ', ', C.numero, ', ', C.cidade, ', ', C.estado, ', ', C.CEP) AS endereco,
+    P.valor AS valor,
+    COUNT(PP.ID) AS volumes,
+    CASE
+        WHEN P.entregue = 1 THEN 'Entregue'
+        ELSE 'Pendente'
+    END AS entrega
+FROM
+    PEDIDO P
+    INNER JOIN CLIENTE C ON P.id_cliente = C.ID
+    LEFT JOIN PEDIDO_PRODUTO PP ON P.ID = PP.id_pedido
+GROUP BY
+    P.ID, nome, CPF, endereco, valor, entrega;
+
+CREATE VIEW administradoresAdmin AS
+SELECT
+    ID AS id,
+    CONCAT(nome, ' ', sobrenome) AS nome,
+    usuario,
+    CPF,
+    email,
+    telefone
+FROM
+    ADMINISTRADOR;
+
