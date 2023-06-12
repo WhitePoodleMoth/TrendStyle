@@ -186,6 +186,200 @@ public class communication {
         return vendorData;
     }
     
+    public ArrayList<ArrayList<?>> collectCategories() {
+        ArrayList<String> ids = new ArrayList<>();
+        ArrayList<String> nomes = new ArrayList<>();
+        ArrayList<String> descricoes = new ArrayList<>();
+
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM PRODUTO_TIPO";
+
+            mysql.executarSQL(consulta);
+
+            ResultSet resultSet = mysql.getResultSet();
+
+            while (resultSet.next()) {
+                try {
+                    ids.add(resultSet.getString("id"));
+                    nomes.add(resultSet.getString("nome"));
+                    descricoes.add(resultSet.getString("descricao"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+
+        ArrayList<ArrayList<?>> categoriesData = new ArrayList<>();
+        categoriesData.add(ids);
+        categoriesData.add(nomes);
+        categoriesData.add(descricoes);
+
+        return categoriesData;
+    }
+    
+    public ArrayList<ArrayList<?>> collectProducts() {
+        ArrayList<String> ids = new ArrayList<>();
+        ArrayList<String> nomes = new ArrayList<>();
+        ArrayList<String> descricoes = new ArrayList<>();
+        ArrayList<String> imagens = new ArrayList<>();
+        ArrayList<String> valores = new ArrayList<>();
+        ArrayList<String> estoques = new ArrayList<>();
+        ArrayList<String> criacoes = new ArrayList<>();
+        ArrayList<String> categorias = new ArrayList<>();
+        ArrayList<String> fornecedores = new ArrayList<>();
+        ArrayList<String> categoriasID = new ArrayList<>();
+        ArrayList<String> fornecedoresID = new ArrayList<>();
+        
+
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM produtosAdmin";
+
+            mysql.executarSQL(consulta);
+
+            ResultSet resultSet = mysql.getResultSet();
+
+            while (resultSet.next()) {
+                try {
+                    ids.add(resultSet.getString("id"));
+                    nomes.add(resultSet.getString("nome"));
+                    descricoes.add(resultSet.getString("descricao"));
+                    imagens.add(resultSet.getString("imagem"));
+                    valores.add(resultSet.getString("valor"));
+                    estoques.add(resultSet.getString("estoque"));
+                    criacoes.add(resultSet.getString("creation"));
+                    categorias.add(resultSet.getString("categoria"));
+                    fornecedores.add(resultSet.getString("fornecedor"));
+                    categoriasID.add(resultSet.getString("categoriaID"));
+                    fornecedoresID.add(resultSet.getString("fornecedorID"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+
+        ArrayList<ArrayList<?>> productsData = new ArrayList<>();
+        productsData.add(ids);
+        productsData.add(nomes);
+        productsData.add(descricoes);
+        productsData.add(imagens);
+        productsData.add(valores);
+        productsData.add(estoques);
+        productsData.add(criacoes);
+        productsData.add(categorias);
+        productsData.add(fornecedores);
+        productsData.add(categoriasID);
+        productsData.add(fornecedoresID);
+
+        return productsData;
+    }
+    
+    public ArrayList<ArrayList<?>> collectOrders() {
+        ArrayList<String> ids = new ArrayList<>();
+        ArrayList<String> nomes = new ArrayList<>();
+        ArrayList<String> cpfs = new ArrayList<>();
+        ArrayList<String> enderecos = new ArrayList<>();
+        ArrayList<String> valores = new ArrayList<>();
+        ArrayList<String> volumess = new ArrayList<>();
+        ArrayList<String> entregas = new ArrayList<>();
+
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM pedidosAdmin";
+
+            mysql.executarSQL(consulta);
+
+            ResultSet resultSet = mysql.getResultSet();
+
+            while (resultSet.next()) {
+                try {
+                    ids.add(resultSet.getString("id"));
+                    nomes.add(resultSet.getString("nome"));
+                    cpfs.add(resultSet.getString("CPF"));
+                    enderecos.add(resultSet.getString("endereco"));
+                    valores.add(resultSet.getString("valor"));
+                    volumess.add(resultSet.getString("volumes"));
+                    entregas.add(resultSet.getString("entrega"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+
+        ArrayList<ArrayList<?>> ordersData = new ArrayList<>();
+        ordersData.add(ids);
+        ordersData.add(nomes);
+        ordersData.add(cpfs);
+        ordersData.add(enderecos);
+        ordersData.add(valores);
+        ordersData.add(volumess);
+        ordersData.add(entregas);
+
+        return ordersData;
+    }
+    
+    public ArrayList<ArrayList<?>> collectAdmins() {
+        ArrayList<String> ids = new ArrayList<>();
+        ArrayList<String> usuarios = new ArrayList<>();
+        ArrayList<String> cpfs = new ArrayList<>();
+        ArrayList<String> nomes = new ArrayList<>();
+        ArrayList<String> emails = new ArrayList<>();
+        ArrayList<String> telefones = new ArrayList<>();
+
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM administradoresAdmin";
+
+            mysql.executarSQL(consulta);
+
+            ResultSet resultSet = mysql.getResultSet();
+
+            while (resultSet.next()) {
+                try {
+                    ids.add(resultSet.getString("id"));
+                    usuarios.add(resultSet.getString("usuario"));
+                    cpfs.add(resultSet.getString("CPF"));
+                    nomes.add(resultSet.getString("nome"));
+                    emails.add(resultSet.getString("email"));
+                    telefones.add(resultSet.getString("telefone"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+
+        ArrayList<ArrayList<?>> adminsData = new ArrayList<>();
+        adminsData.add(ids);
+        adminsData.add(usuarios);
+        adminsData.add(cpfs);
+        adminsData.add(nomes);
+        adminsData.add(emails);
+        adminsData.add(telefones);
+
+        return adminsData;
+    }
+    
     public boolean registerClient(String username, String password, String cpf, String nome, String sobrenome, String email, String telefone, String cep, String rua, String numero, String cidade, String estado) {
         mysql.conectaBanco();
 
