@@ -223,6 +223,73 @@ public class communication {
         return categoriesData;
     }
     
+    public ArrayList collectCategoryData(int id) {
+        ArrayList categoryData = new ArrayList<>();
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM PRODUTO_TIPO WHERE ID = " + id;
+            
+            mysql.executarSQL(consulta);
+            
+            ResultSet resultSet = mysql.getResultSet();
+
+            if (resultSet.next()) {
+                try {
+                    categoryData.add(resultSet.getString("nome"));
+                    categoryData.add(resultSet.getString("descricao"));
+                } catch (Exception ex) {}
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+        return categoryData;
+    }
+    
+    public boolean registerCategory(String name, String description) {
+        mysql.conectaBanco();
+
+        String consulta = "CALL registrarTipoProduto('" + name + "', '" + description + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+
+    public boolean updateCategory(int id, String name, String description) {
+        mysql.conectaBanco();
+
+        String consulta = "CALL alterarTipoProduto(" + id + ", '" + name + "', '" + description + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
+    public boolean deleteCategory(int id) {
+        mysql.conectaBanco();
+        
+        String consulta = "CALL excluirTipoProduto('" + id + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
     public ArrayList<ArrayList<?>> collectProducts() {
         ArrayList<String> ids = new ArrayList<>();
         ArrayList<String> nomes = new ArrayList<>();

@@ -4,14 +4,66 @@
  */
 package views.admin;
 
+import communication.communication;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import utils.Validator;
 
 /**
  *
  * @author Unknown Account
  */
 public class AdminCategoryScreen extends javax.swing.JFrame {
+    communication dbAccess = new communication();
     int ID = 0;
+    int categoryID = 0;
+    
+    public boolean updateTable() {
+        DefaultTableModel tableModel = new DefaultTableModel(
+                new Object[]{"ID", "Nome", "Descrição"}, 0) {
+            // Making cells non-editable
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        ArrayList<ArrayList<?>> categories = dbAccess.collectCategories();
+        ArrayList<String> ids = (ArrayList<String>) categories.get(0);
+        ArrayList<String> nomes = (ArrayList<String>) categories.get(1);
+        ArrayList<String> descricoes = (ArrayList<String>) categories.get(2);
+
+        // Iterating in reverse order
+        for (int i = ids.size() - 1; i >= 0; i--) {
+            //String statusPedido = status.get(i) ? "Entregue" : "Pendente";
+            String id = ids.get(i);
+            String nome = nomes.get(i);
+            String descricao = descricoes.get(i);
+            tableModel.addRow(new Object[]{id, nome, descricao});
+        }
+
+        Table = new JTable(tableModel);
+        ScrollPane.setViewportView(Table);
+
+        Table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) {
+                    int linhaSelecionada = Table.getSelectedRow();
+                    categoryID = Integer.parseInt(Table.getValueAt(linhaSelecionada, 0).toString());
+                    String nome = Table.getValueAt(linhaSelecionada, 1).toString();
+                    Name.setText(nome);
+                }
+            }
+        });
+
+        return true;
+    }
     
     /**
      * Creates new form AdminCategoryScreen
@@ -21,6 +73,7 @@ public class AdminCategoryScreen extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
         this.ID = _ID;
+        updateTable();
     }
 
     /**
@@ -33,17 +86,20 @@ public class AdminCategoryScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         Panel = new javax.swing.JPanel();
-        Background = new javax.swing.JLabel();
         ButtonBack = new javax.swing.JButton();
+        Name = new javax.swing.JLabel();
+        ScrollPane = new javax.swing.JScrollPane();
+        Table = new javax.swing.JTable();
+        ButtonRegister = new javax.swing.JButton();
+        ButtonUpdate = new javax.swing.JButton();
+        ButtonDelete = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TrendStyle - Admin Category");
 
         Panel.setBackground(new java.awt.Color(255, 255, 255));
         Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/adminCategory.png"))); // NOI18N
-        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         ButtonBack.setBorderPainted(false);
         ButtonBack.setContentAreaFilled(false);
@@ -56,6 +112,70 @@ public class AdminCategoryScreen extends javax.swing.JFrame {
             }
         });
         Panel.add(ButtonBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 50, 40));
+
+        Name.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Panel.add(Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 380, 40));
+
+        ScrollPane.setBorder(null);
+
+        Table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        Table.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                TableComponentAdded(evt);
+            }
+        });
+        ScrollPane.setViewportView(Table);
+
+        Panel.add(ScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 118, 840, 320));
+
+        ButtonRegister.setBorderPainted(false);
+        ButtonRegister.setContentAreaFilled(false);
+        ButtonRegister.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonRegister.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonRegister.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonRegisterActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(725, 469, 55, 52));
+
+        ButtonUpdate.setBorderPainted(false);
+        ButtonUpdate.setContentAreaFilled(false);
+        ButtonUpdate.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonUpdate.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonUpdate.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonUpdateActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(785, 469, 53, 52));
+
+        ButtonDelete.setBorderPainted(false);
+        ButtonDelete.setContentAreaFilled(false);
+        ButtonDelete.setMaximumSize(new java.awt.Dimension(50, 50));
+        ButtonDelete.setMinimumSize(new java.awt.Dimension(50, 50));
+        ButtonDelete.setPreferredSize(new java.awt.Dimension(50, 50));
+        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonDeleteActionPerformed(evt);
+            }
+        });
+        Panel.add(ButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(843, 469, 53, 51));
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/adminCategory.png"))); // NOI18N
+        Panel.add(Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,6 +200,46 @@ public class AdminCategoryScreen extends javax.swing.JFrame {
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonBackActionPerformed
+
+    private void TableComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_TableComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TableComponentAdded
+
+    private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
+        AdminCategoryManagerScreen page = new AdminCategoryManagerScreen(this.ID, 0);
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonRegisterActionPerformed
+
+    private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed
+        AdminCategoryManagerScreen page = new AdminCategoryManagerScreen(this.ID, this.categoryID);
+        page.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ButtonUpdateActionPerformed
+
+    private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
+        int result = JOptionPane.showConfirmDialog(null,
+            "<html><body><p style='width: 200px;'>Você tem certeza que deseja excluir esta categoria? Esta ação é irreversível.</p></body></html>",
+            "Confirmação de Exclusão",
+            JOptionPane.YES_NO_OPTION);
+
+        if(result == JOptionPane.YES_OPTION) {
+            if (dbAccess.deleteCategory(this.categoryID)) {
+                JOptionPane.showMessageDialog(null,
+                    "<html><body><p style='width: 200px;'>A categoria foi excluída com sucesso.</p></body></html>",
+                    "Exclusão Concluída",
+                    JOptionPane.INFORMATION_MESSAGE);
+                AdminCategoryScreen page = new AdminCategoryScreen(this.ID);
+                page.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null,
+                    "<html><body><p style='width: 200px;'>Oops! Algo deu errado durante a exclusão da categoria. Por favor, tente novamente.</p></body></html>",
+                    "Erro na Exclusão",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,6 +279,12 @@ public class AdminCategoryScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
     private javax.swing.JButton ButtonBack;
+    private javax.swing.JButton ButtonDelete;
+    private javax.swing.JButton ButtonRegister;
+    private javax.swing.JButton ButtonUpdate;
+    private javax.swing.JLabel Name;
     private javax.swing.JPanel Panel;
+    private javax.swing.JScrollPane ScrollPane;
+    private javax.swing.JTable Table;
     // End of variables declaration//GEN-END:variables
 }
