@@ -59,7 +59,7 @@ CREATE TABLE PRODUTO (
     estoque INTEGER NOT NULL,
     creation DATE NOT NULL,
     id_fornecedor INTEGER,
-    id_produto_tipo INTEGER NOT NULL,
+    id_produto_tipo INTEGER,
     FOREIGN KEY(id_fornecedor) REFERENCES FORNECEDOR(ID),
     FOREIGN KEY(id_produto_tipo) REFERENCES PRODUTO_TIPO(ID)
 );

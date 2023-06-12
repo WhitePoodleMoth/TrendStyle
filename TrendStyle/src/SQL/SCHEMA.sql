@@ -448,10 +448,17 @@ CREATE PROCEDURE excluirTipoProduto(
     IN p_id INT
 )
 BEGIN
-    DELETE FROM PRODUTO_TIPO
-    WHERE ID = p_id;
+    DECLARE tipo_id INT;
+    
+    -- Obter o ID da categoria
+    SELECT ID INTO tipo_id FROM PRODUTO_TIPO WHERE ID = p_id;
+    
+    -- Atualizar a categoria dos produtos para NULL
+    UPDATE PRODUTO SET id_produto_tipo = NULL WHERE id_produto_tipo = tipo_id;
+    
+    -- Apagar a categoria
+    DELETE FROM PRODUTO_TIPO WHERE ID = tipo_id;
 END //
-
 
 CREATE PROCEDURE registrarProduto(
     IN p_nome VARCHAR(255),
@@ -559,19 +566,18 @@ SELECT
     P.nome,
     P.descricao,
     P.imagem_url as imagem,
-    F.nomeFantasia as fornecedor,
-    PT.nome as categoria,
+    IFNULL(F.nomeFantasia, '') as fornecedor,
+    IFNULL(PT.nome, '') as categoria,
     P.estoque,
     P.valor
 FROM 
     PRODUTO P
-JOIN 
+LEFT JOIN 
     FORNECEDOR F ON P.id_fornecedor = F.ID
-JOIN 
+LEFT JOIN 
     PRODUTO_TIPO PT ON P.id_produto_tipo = PT.ID
 WHERE 
     P.estoque > 0;
-
 
 CREATE VIEW visualizarCarrinho AS
 SELECT
@@ -616,20 +622,27 @@ GROUP BY p.ID, c.ID
 ORDER BY c.ID, p.ID;
 
 CREATE VIEW visualizarPedido AS
-SELECT p.ID AS id_pedido,
-       pr.ID AS id_produto,
-       CONCAT(pr.nome, ' (', pt.nome, ')') AS nome,
-       f.nomeFantasia AS fabricante,
-       pr.valor AS valorProduto,
-       pp.quantidade AS quantidade,
-       (pr.valor * pp.quantidade) AS valorTotal,
-       pr.imagem_url AS imagemProduto
-FROM PEDIDO p
-JOIN PEDIDO_PRODUTO pp ON p.ID = pp.id_pedido
-JOIN PRODUTO pr ON pp.id_produto = pr.ID
-JOIN FORNECEDOR f ON pr.id_fornecedor = f.ID
-JOIN PRODUTO_TIPO pt ON pr.id_produto_tipo = pt.ID
-ORDER BY p.ID, pr.ID;
+SELECT
+    p.ID AS id_pedido,
+    pr.ID AS id_produto,
+    CONCAT(pr.nome, IFNULL(pt.nome, '')) AS nome,
+    IFNULL(f.nomeFantasia, '') AS fabricante,
+    pr.valor AS valorProduto,
+    pp.quantidade AS quantidade,
+    (pr.valor * pp.quantidade) AS valorTotal,
+    pr.imagem_url AS imagemProduto
+FROM
+    PEDIDO p
+JOIN
+    PEDIDO_PRODUTO pp ON p.ID = pp.id_pedido
+JOIN
+    PRODUTO pr ON pp.id_produto = pr.ID
+LEFT JOIN
+    FORNECEDOR f ON pr.id_fornecedor = f.ID
+LEFT JOIN
+    PRODUTO_TIPO pt ON pr.id_produto_tipo = pt.ID
+ORDER BY
+    p.ID, pr.ID;
 
 CREATE VIEW produtosAdmin AS
 SELECT
@@ -640,14 +653,16 @@ SELECT
     P.valor AS valor,
     P.estoque AS estoque,
     P.creation AS creation,
-    PT.nome AS categoria,
-    F.razaoSocial AS fornecedor,
+    IFNULL(PT.nome, '') AS categoria,
+    IFNULL(F.razaoSocial, '') AS fornecedor,
     PT.ID AS categoriaID,
     F.ID AS fornecedorID
 FROM
     PRODUTO P
-    INNER JOIN PRODUTO_TIPO PT ON P.id_produto_tipo = PT.ID
-    INNER JOIN FORNECEDOR F ON P.id_fornecedor = F.ID;
+LEFT JOIN
+    PRODUTO_TIPO PT ON P.id_produto_tipo = PT.ID
+LEFT JOIN
+    FORNECEDOR F ON P.id_fornecedor = F.ID;
 
 CREATE VIEW pedidosAdmin AS
 SELECT
