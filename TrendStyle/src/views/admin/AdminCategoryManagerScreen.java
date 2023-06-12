@@ -105,7 +105,7 @@ public class AdminCategoryManagerScreen extends javax.swing.JFrame {
             String description = FieldDescription.getText();
             if(dbAccess.updateCategory(this.categoryID, name, description)) {
                 JOptionPane.showMessageDialog(null, 
-                "<html><body><p style='width: 200px;'>O fornecedor foi atualizado com sucesso!</p></body></html>",
+                "<html><body><p style='width: 200px;'>A categoria foi atualizado com sucesso!</p></body></html>",
                 "Atualização Concluída", 
                 JOptionPane.INFORMATION_MESSAGE);
                 AdminCategoryManagerScreen page = new AdminCategoryManagerScreen(this.ID, this.categoryID);
@@ -113,7 +113,7 @@ public class AdminCategoryManagerScreen extends javax.swing.JFrame {
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(null, 
-                "<html><body><p style='width: 200px;'>Oops! Algo deu errado durante a atualização do fornecedor. Por favor, tente novamente.</p></body></html>",
+                "<html><body><p style='width: 200px;'>Oops! Algo deu errado durante a atualização da categoria. Por favor, tente novamente.</p></body></html>",
                 "Erro na Atualização", 
                 JOptionPane.ERROR_MESSAGE);
             }
