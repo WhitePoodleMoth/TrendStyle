@@ -401,6 +401,80 @@ public class communication {
         return ordersData;
     }
     
+    public ArrayList collectProductData(int id) {
+        ArrayList productData = new ArrayList<>();
+        try {
+            mysql.conectaBanco();
+
+            String consulta = "SELECT * FROM detalhesProduto WHERE id = " + id;
+            
+            mysql.executarSQL(consulta);
+            
+            ResultSet resultSet = mysql.getResultSet();
+
+            if (resultSet.next()) {
+                try {
+                    productData.add(resultSet.getString("nome"));
+                    productData.add(resultSet.getString("descricao"));
+                    productData.add(resultSet.getString("imagem"));
+                    productData.add(resultSet.getString("valor"));
+                    productData.add(resultSet.getString("estoque"));
+                    productData.add(resultSet.getString("categoria"));
+                    productData.add(resultSet.getString("fornecedor"));
+                    productData.add(resultSet.getString("categoria_id"));
+                    productData.add(resultSet.getString("fornecedor_id"));
+                } catch (Exception ex) {}
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+        return productData;
+    }
+    
+    public boolean registerProduct(String name, String description, String image, String value, String stock, int vendor, int category) {
+        mysql.conectaBanco();
+        
+        String consulta = "CALL registrarProduto('" + name + "', '" + description +"', '" + image + "', '" + value + "', '"  + stock + "', '" + vendor + "', '" + category + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
+    public boolean updateProductDetails(int id, String name, String description, String image, String value, String stock, int vendor, int category) {
+        mysql.conectaBanco();
+        
+        String consulta = "CALL atualizarProduto('" + id + "', '" + name + "', '" + description +"', '" + image + "', '" + value + "', '"  + stock + "', '" + vendor + "', '" + category + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
+    public boolean deleteProduct(int id) {
+        mysql.conectaBanco();
+        
+        String consulta = "CALL apagarProduto('" + id + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
     public ArrayList<ArrayList<?>> collectAdmins() {
         ArrayList<String> ids = new ArrayList<>();
         ArrayList<String> usuarios = new ArrayList<>();

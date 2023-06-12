@@ -466,13 +466,27 @@ CREATE PROCEDURE registrarProduto(
     IN p_imagem_url VARCHAR(255),
     IN p_valor FLOAT,
     IN p_estoque INTEGER,
-    IN p_creation DATE,
     IN p_id_fornecedor INTEGER,
     IN p_id_produto_tipo INTEGER
 )
 BEGIN
+    DECLARE fornecedor_id INTEGER;
+    DECLARE categoria_id INTEGER;
+    
+    IF p_id_fornecedor = 0 THEN
+        SET fornecedor_id = NULL;
+    ELSE
+        SET fornecedor_id = p_id_fornecedor;
+    END IF;
+    
+    IF p_id_produto_tipo = 0 THEN
+        SET categoria_id = NULL;
+    ELSE
+        SET categoria_id = p_id_produto_tipo;
+    END IF;
+    
     INSERT INTO PRODUTO (nome, descricao, imagem_url, valor, estoque, creation, id_fornecedor, id_produto_tipo)
-    VALUES (p_nome, p_descricao, p_imagem_url, p_valor, p_estoque, p_creation, p_id_fornecedor, p_id_produto_tipo);
+    VALUES (p_nome, p_descricao, p_imagem_url, p_valor, p_estoque, NOW(), fornecedor_id, categoria_id);
 END //
 
 CREATE PROCEDURE atualizarProduto(
@@ -482,18 +496,24 @@ CREATE PROCEDURE atualizarProduto(
     IN p_imagem_url VARCHAR(255),
     IN p_valor FLOAT,
     IN p_estoque INTEGER,
-    IN p_creation DATE,
     IN p_id_fornecedor INTEGER,
     IN p_id_produto_tipo INTEGER
 )
 BEGIN
+    IF p_id_fornecedor = 0 THEN
+        SET p_id_fornecedor = NULL;
+    END IF;
+
+    IF p_id_produto_tipo = 0 THEN
+        SET p_id_produto_tipo = NULL;
+    END IF;
+
     UPDATE PRODUTO
     SET nome = p_nome,
         descricao = p_descricao,
         imagem_url = p_imagem_url,
         valor = p_valor,
         estoque = p_estoque,
-        creation = p_creation,
         id_fornecedor = p_id_fornecedor,
         id_produto_tipo = p_id_produto_tipo
     WHERE ID = p_id;
@@ -693,4 +713,23 @@ SELECT
     telefone
 FROM
     ADMINISTRADOR;
+
+CREATE VIEW detalhesProduto AS
+SELECT
+    P.ID AS id,
+    P.nome AS nome,
+    P.descricao AS descricao,
+    P.imagem_url AS imagem,
+    P.valor AS valor,
+    P.estoque AS estoque,
+    IFNULL(PT.ID, 0) AS categoria_id,
+    IFNULL(PT.nome, '') AS categoria,
+    IFNULL(F.ID, 0) AS fornecedor_id,
+    IFNULL(F.nomeFantasia, '') AS fornecedor
+FROM
+    PRODUTO P
+LEFT JOIN
+    PRODUTO_TIPO PT ON P.id_produto_tipo = PT.ID
+LEFT JOIN
+    FORNECEDOR F ON P.id_fornecedor = F.ID;
 

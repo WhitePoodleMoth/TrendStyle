@@ -45,15 +45,15 @@ CALL registrarTipoProduto('Nova Categoria', '');
 CALL alterarTipoProduto(5, 'Bolsa', 'Acessório de moda versátil para transportar itens pessoais com estilo e praticidade');
 CALL excluirTipoProduto(6);
 
-CALL registrarProduto('GG low-top sneakers',                '', 'https://cdn-images.farfetch-contents.com/20/27/32/42/20273242_50259070_1000.jpg', 5670.00,  50, '2023-01-05', 1, 1);
-CALL registrarProduto('Mochila Jumbo GG de couro',          '', 'https://cdn-images.farfetch-contents.com/20/25/83/00/20258300_50203391_1000.jpg', 22890.00, 15, '2023-02-10', 1, 2);
-CALL registrarProduto('Pulseira com logo Medusa',           '', 'https://cdn-images.farfetch-contents.com/12/97/27/68/12972768_13620002_1000.jpg', 4414.00,  10, '2023-03-15', 2, 3);
-CALL registrarProduto('Tênis Portofino com patch de logo',  '', 'https://cdn-images.farfetch-contents.com/20/22/93/76/20229376_50226707_1000.jpg', 4500.00,  25, '2023-04-20', 3, 1);
-CALL registrarProduto('Cinto de couro Saffiano dupla face', '', 'https://cdn-images.farfetch-contents.com/19/99/58/27/19995827_44934096_1000.jpg', 4700.00,  5 , '2023-05-25', 5, 4);
-CALL registrarProduto('Temporario',                         '', '',                                                                                   0.00,  1 , '2023-05-30', 1, 1);
-CALL registrarProduto('Produto Invalido',                   '', '',                                                                                   0.00,  1 , '2023-05-31', 1, 1);
+CALL registrarProduto('GG low-top sneakers',                '', 'https://cdn-images.farfetch-contents.com/20/27/32/42/20273242_50259070_1000.jpg', 5670.00,  50, 1, 1);
+CALL registrarProduto('Mochila Jumbo GG de couro',          '', 'https://cdn-images.farfetch-contents.com/20/25/83/00/20258300_50203391_1000.jpg', 22890.00, 15, 1, 2);
+CALL registrarProduto('Pulseira com logo Medusa',           '', 'https://cdn-images.farfetch-contents.com/12/97/27/68/12972768_13620002_1000.jpg', 4414.00,  10, 2, 3);
+CALL registrarProduto('Tênis Portofino com patch de logo',  '', 'https://cdn-images.farfetch-contents.com/20/22/93/76/20229376_50226707_1000.jpg', 4500.00,  25, 3, 1);
+CALL registrarProduto('Cinto de couro Saffiano dupla face', '', 'https://cdn-images.farfetch-contents.com/19/99/58/27/19995827_44934096_1000.jpg', 4700.00,  5 , 5, 4);
+CALL registrarProduto('Temporario',                         '', '',                                                                                   0.00,  1 , 1, 1);
+CALL registrarProduto('Produto Invalido',                   '', '',                                                                                   0.00,  1 , 1, 1);
 
-CALL atualizarProduto(5, 'Nome', 'Descricao', 'Imagem', 100.00, 50, '2023-05-31', 1, 1);
+CALL atualizarProduto(5, 'Nome', 'Descricao', 'Imagem', 100.00, 50, 1, 1);
 CALL apagarProduto(6);
 
 CALL realizarDeposito(1,45000);
@@ -78,3 +78,8 @@ CALL adicionarProdutoNoCarrinho(1, 4, 1);
 CALL adicionarProdutoNoCarrinho(1, 5, 1);
 
 SELECT * FROM produtosLoja;
+SELECT * FROM detalhesProduto WHERE id = 3;
+SELECT * FROM FORNECEDOR;
+SELECT * FROM PRODUTO_TIPO;
+SELECT ID FROM FORNECEDOR WHERE nomeFantasia = "GucciInternational";
+SELECT id FROM PRODUTO_TIPO WHERE nome = "Tenis";
