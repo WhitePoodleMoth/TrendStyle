@@ -150,7 +150,7 @@ public class AdminHomeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_FieldUsernameActionPerformed
 
     private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
-        AdminRegisterScreen page = new AdminRegisterScreen();
+        AdminRegisterScreen page = new AdminRegisterScreen(0);
         page.setVisible(true);
         dispose();
     }//GEN-LAST:event_ButtonRegisterActionPerformed

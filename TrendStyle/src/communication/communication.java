@@ -447,6 +447,77 @@ public class communication {
         return adminsData;
     }
     
+    public ArrayList colletAdminDetails(int id) {
+        ArrayList<String> adminInfo = new ArrayList<>();
+        
+        mysql.conectaBanco();
+
+        String consulta = "SELECT * FROM ADMINISTRADOR WHERE ID = '" + id + "'";
+        
+        mysql.executarSQL(consulta);
+
+        ResultSet resultSet = mysql.getResultSet();
+
+        try {
+            if (resultSet.next()) {
+                adminInfo.add(resultSet.getString("nome"));
+                adminInfo.add(resultSet.getString("sobrenome"));
+                adminInfo.add(resultSet.getString("CPF"));
+                adminInfo.add(resultSet.getString("usuario"));
+                
+                adminInfo.add(resultSet.getString("email"));
+                adminInfo.add(resultSet.getString("telefone"));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            mysql.fechaBanco();
+        }
+        return adminInfo;
+    }
+    
+    public boolean updateAdminDetails(int id, String firstName, String lastName, String CPF, String username, String email, String celular) {
+        mysql.conectaBanco();
+        
+        String consulta = "CALL atualizarAdmin('" + id + "', '" + username + "', '" + CPF +"', '" + firstName + "', '" + lastName + "', '"  +email + "', '" + celular + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
+    public boolean updateAdminPassword(int id, String password) {
+        mysql.conectaBanco();
+        
+        String consulta = "CALL atualizarSenhaAdmin('" + id + "', '" + password +"')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
+    public boolean deleteAdmin(int id) {
+        mysql.conectaBanco();
+        
+        String consulta = "CALL apagarAdmin('" + id + "')";
+
+        mysql.executarSQL(consulta);
+
+        boolean success = (mysql.getResultSet() != null);
+
+        mysql.fechaBanco();
+
+        return success;
+    }
+    
     public boolean registerClient(String username, String password, String cpf, String nome, String sobrenome, String email, String telefone, String cep, String rua, String numero, String cidade, String estado) {
         mysql.conectaBanco();
 

@@ -19,6 +19,7 @@ public class AdminRegisterScreen extends javax.swing.JFrame {
     communication dbAccess = new communication();
     Validator validator = new Validator();
     SHA256 sha256 = new SHA256();
+    int ID = 0;
 
     public void fixDesign() {
         FieldUsername.setOpaque(false);
@@ -41,8 +42,8 @@ public class AdminRegisterScreen extends javax.swing.JFrame {
         
         FieldCelular.setOpaque(false);
         FieldCelular.setBackground(new Color(0, 0, 0, 0));
-        
     }
+    
     public boolean validateFields(String email, String cpf) {
         boolean valid = true;
         
@@ -91,11 +92,12 @@ public class AdminRegisterScreen extends javax.swing.JFrame {
     /**
      * Creates new form AdminRegisterScreen
      */
-    public AdminRegisterScreen() {
+    public AdminRegisterScreen(int _ID) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../media/TrendStyleIcon.png")));
         setLocationRelativeTo(null);
         fixDesign();
+        this.ID = _ID;
     }
 
     /**
@@ -252,16 +254,28 @@ public class AdminRegisterScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_FieldLastNameActionPerformed
 
     private void ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBackActionPerformed
-        AdminHomeScreen page = new AdminHomeScreen();
-        page.setVisible(true);
-        dispose();
+        if (this.ID>0) {
+            AdminAdministratorScreen page = new AdminAdministratorScreen(this.ID);
+            page.setVisible(true);
+            dispose();
+        } else {
+            AdminHomeScreen page = new AdminHomeScreen();
+            page.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_ButtonBackActionPerformed
 
     private void ButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRegisterActionPerformed
         if (verifyAndRegisterFields()) {
-            AdminHomeScreen page = new AdminHomeScreen();
-            page.setVisible(true);
-            dispose();
+            if (this.ID>0) {
+                AdminAdministratorScreen page = new AdminAdministratorScreen(this.ID);
+                page.setVisible(true);
+                dispose();
+            } else {
+                AdminHomeScreen page = new AdminHomeScreen();
+                page.setVisible(true);
+                dispose();
+            }
         }
     }//GEN-LAST:event_ButtonRegisterActionPerformed
 
@@ -295,7 +309,7 @@ public class AdminRegisterScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminRegisterScreen().setVisible(true);
+                new AdminRegisterScreen(0).setVisible(true);
             }
         });
     }
