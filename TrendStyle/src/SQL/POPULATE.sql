@@ -72,14 +72,3 @@ CALL adicionarProdutoNoCarrinho(1, 2, 1);
 CALL adicionarProdutoNoCarrinho(1, 3, 1);
 CALL apagarCarrinho(1);
 CALL adicionarProdutoNoCarrinho(1, 1, 2);
-CALL adicionarProdutoNoCarrinho(1, 2, 1);
-CALL adicionarProdutoNoCarrinho(1, 3, 1);
-CALL adicionarProdutoNoCarrinho(1, 4, 1);
-CALL adicionarProdutoNoCarrinho(1, 5, 1);
-
-SELECT * FROM produtosLoja;
-SELECT * FROM detalhesProduto WHERE id = 3;
-SELECT * FROM FORNECEDOR;
-SELECT * FROM PRODUTO_TIPO;
-SELECT ID FROM FORNECEDOR WHERE nomeFantasia = "GucciInternational";
-SELECT id FROM PRODUTO_TIPO WHERE nome = "Tenis";
