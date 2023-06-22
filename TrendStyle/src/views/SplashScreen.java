@@ -12,7 +12,7 @@ import java.awt.Toolkit;
  */
 public class SplashScreen extends javax.swing.JFrame {
     private int progressValue = 0;
-    private final int progressTimer = 50;
+    private final int progressTimer = 10;
     
     private void progressBarUpdate(int amount) {
         if (amount <= 0) {
