@@ -1,4 +1,4 @@
-# 🎓 TrendStyle Shop
+# 🎓 TrendStyle Shop (Segundo Semestre)
 
 ## 📘 Sobre o Projeto
 
