@@ -86,7 +86,7 @@ Também é necessário que o usuário precisa ter familiaridade com a IDE NetBea
 ## 👥 Desenvolvedores
 
 - [WhitePoodleMoth](https://github.com/WhitePoodleMoth)
-- [AnnelisePD](https://github.com/annelisepd)
+- [RosyMaple](https://github.com/RosyMaple)
 
 ## 📄 Licença
 
