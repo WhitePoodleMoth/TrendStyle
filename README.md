@@ -1,4 +1,4 @@
-# 🎓 TrendStyle Shop (Segundo Semestre)
+# 🎓 TrendStyle Shop
 
 ## 📘 Sobre o Projeto
 
@@ -43,7 +43,7 @@ Também é necessário que o usuário precisa ter familiaridade com a IDE NetBea
 1. Clone o repositório com o seguinte comando:
 
     ```sh
-    git clone https://github.com/FacensProjects/Facens-TrendStyle.git
+    git clone https://github.com/WhitePoodleMoth/TrendStyle.git
     ```
 
 2. Instale e configure seu servidor [MySQL Community Server 8.0.33](https://dev.mysql.com/downloads/mysql).
