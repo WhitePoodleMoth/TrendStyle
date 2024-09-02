@@ -1,93 +1,93 @@
 # 🎓 TrendStyle Shop
 
-## 📘 Sobre o Projeto
+## 📘 About the Project
 
-O TrendStyle é um projeto desenvolvido em Java, usando um banco de dados MySQL, que simula uma loja virtual no âmbito do comércio eletrônico. Ele visa oferecer uma experiência otimizada de gestão e compra com atualizações em tempo real.
+TrendStyle is a project developed in Java using a MySQL database, simulating an online store in the e-commerce realm. It aims to provide an optimized management and purchasing experience with real-time updates.
 
-A interface administrativa do protótipo permite gerenciar vários aspectos operacionais, incluindo fornecedores, categorias de produtos e itens à venda. Os administradores também podem gerenciar outros usuários com privilégios de gerenciamento. Além disso, o sistema de processamento de pedidos permite atualizar o status dos pedidos e fornecer informações simuladas de entrega.
+The administrative interface of the prototype allows management of various operational aspects, including suppliers, product categories, and items for sale. Administrators can also manage other users with management privileges. Additionally, the order processing system enables updating order statuses and providing simulated delivery information.
 
-A interface do cliente foi projetada para proporcionar uma experiência de compra intuitiva e fácil. Os usuários podem visualizar todos os produtos, adicioná-los ao carrinho e fazer pagamentos fictícios através de depósitos registrados no sistema. Eles também podem acompanhar o status de pedidos simulados e atualizar suas informações cadastrais.
+The customer interface is designed to offer an intuitive and easy shopping experience. Users can view all products, add them to the cart, and make fictional payments through deposits recorded in the system. They can also track the status of simulated orders and update their personal information.
 
 ![TrendStyle Shop](images/shop-demo.gif)
 
-## 🔧 Construção do Sistema
+## 🔧 System Construction
 
-O sistema TrendStyle foi construído utilizando Java e a IDE NetBeans. Escolhemos estas tecnologias por sua capacidade de lidar com projetos de grande escala e permitir um desenvolvimento eficiente. Usamos a ferramenta Canva para o design das interfaces do usuário, proporcionando uma experiência intuitiva e agradável.
+The TrendStyle system was built using Java and the NetBeans IDE. We chose these technologies for their ability to handle large-scale projects and enable efficient development. We used Canva for user interface design, providing an intuitive and pleasant experience.
 
-O projeto é dividido em diversas telas, criando painéis dedicados para administradores e clientes. Esses elementos são integrados diretamente a um banco de dados otimizado para maximizar o desempenho e facilitar a implementação no projeto Java.
+The project is divided into several screens, creating dedicated panels for administrators and customers. These elements are directly integrated with a database optimized to maximize performance and facilitate implementation in the Java project.
 
-Desenvolvemos várias Procedures e Views no banco de dados para melhorar a manipulação de dados e a eficiência geral do sistema. Essas ferramentas têm restrições e ajustes personalizados para cada ação, garantindo que o sistema funcione com a maior eficiência possível.
+We developed several Procedures and Views in the database to enhance data handling and overall system efficiency. These tools have custom restrictions and adjustments for each action, ensuring the system operates with the highest efficiency possible.
 
 ![Diagram Software](images/structure-software.png)
 ![Diagram Database](images/structure-database.png)
 
-## 💻 Tecnologias Utilizadas
+## 💻 Technologies Used
 
 - ☕️ Java & NetBeans
 - 📊 Mermaid.js & dbdiagram.io
 - 🐬 MySQL & MySQL Workbench
 - 🎨 Canva
 
-## 📋 Requisitos para Utilizar o Sistema
+## 📋 Requirements to Use the System
 
-Para executar o NotFound Server localmente, você precisa ter os seguintes softwares instalados:
+To run the NotFound Server locally, you need to have the following software installed:
 
 - ☕️ Java (JDK 17)
 - 🔶 NetBeans
 - 🐬 MySQL Server (8.0.33)
 
-Também é necessário que o usuário precisa ter familiaridade com a IDE NetBeans, domínio básico de Java e compreender como utilizar e configurar um banco de dados MySQL.
+You should also be familiar with the NetBeans IDE, have a basic understanding of Java, and know how to use and configure a MySQL database.
 
-## 🚀 Como Usar
+## 🚀 How to Use
 
-1. Clone o repositório com o seguinte comando:
+1. Clone the repository with the following command:
 
     ```sh
     git clone https://github.com/WhitePoodleMoth/TrendStyle.git
     ```
 
-2. Instale e configure seu servidor [MySQL Community Server 8.0.33](https://dev.mysql.com/downloads/mysql).
+2. Install and configure your [MySQL Community Server 8.0.33](https://dev.mysql.com/downloads/mysql).
 
-3. Em seguida, instale o [Connector/J 8.0.33](https://dev.mysql.com/downloads/connector/j/):
+3. Next, install [Connector/J 8.0.33](https://dev.mysql.com/downloads/connector/j/):
 
     ![Connector Download](images/connector-demo.gif)
-   
-4. Descompacte o Connector e remova o arquivo compactado:
+
+4. Unpack the Connector and remove the compressed file:
 
     ![Connector Unpack](images/unpack-demo.gif)
 
-5. No NetBeans, abra o projeto e, com o botão direito, selecione properties -> libraries -> adicionar classpath -> (selecione o arquivo jar do connector) e confirme:
+5. In NetBeans, open the project, right-click, select properties -> libraries -> add classpath -> (select the connector jar file) and confirm:
 
-    ![Connector Unpack](images/import-demo.gif)
+    ![Connector Import](images/import-demo.gif)
 
-6. Para criar a estrutura de banco de dados, execute os arquivos SQL localizados na pasta [TrendStyle/src/SQL](TrendStyle/src/SQL) na seguinte ordem:
+6. To create the database structure, execute the SQL files located in the [TrendStyle/src/SQL](TrendStyle/src/SQL) folder in the following order:
 
     ```sh
-    DATABASE.sql (Obrigatório)
-    SCHEMA.sql   (Obrigatório)
-    POPULATE.sql (Opcional)
+    DATABASE.sql (Required)
+    SCHEMA.sql   (Required)
+    POPULATE.sql (Optional)
     ```
-    * Use o [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) para facilitar a execução dos arquivos SQL.
-    
-7. Altere o arquivo [TrendStyle\src\communication\MySQL.java](TrendStyle/src/communication/MySQL.java) com as informações do seu servidor:
+    * Use [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) to facilitate executing the SQL files.
+
+7. Modify the [TrendStyle\src\communication\MySQL.java](TrendStyle/src/communication/MySQL.java) file with your server information:
 
     ```java
-    private String servidor = "localhost:3306";
-    private String nomeDoBanco = "TrendStyle";
-    private String usuario = "root"; // Coloque aqui o seu usuário
-    private String senha = "root";   // Coloque aqui a sua senha
+    private String server = "localhost:3306";
+    private String databaseName = "TrendStyle";
+    private String user = "root"; // Enter your user here
+    private String password = "root";   // Enter your password here
     ```
-8. Clique com o botão direito no projeto e selecione "Clean and Build" para prepará-lo para a execução.
+8. Right-click on the project and select "Clean and Build" to prepare it for execution.
 
-9. Agora que tudo está configurado, basta executar o software e explorar suas funcionalidades!
+9. Now that everything is set up, just run the software and explore its features!
 
     ![TrendStyle Loading](images/load-demo.gif)
-   
-## 👥 Desenvolvedores
+
+## 👥 Developers
 
 - [WhitePoodleMoth](https://github.com/WhitePoodleMoth)
 - [RosyMaple](https://github.com/RosyMaple)
 
-## 📄 Licença
+## 📄 License
 
-O TrendStyle Shop é licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
+TrendStyle Shop is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
