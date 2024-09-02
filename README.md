@@ -86,7 +86,7 @@ You should also be familiar with the NetBeans IDE, have a basic understanding of
 ## 👥 Developers
 
 - [WhitePoodleMoth](https://github.com/WhitePoodleMoth)
-- [RosyMaple](https://github.com/RosyMaple)
+- [LovelyKoshka](https://github.com/lovelykoshka)
 
 ## 📄 License
 
